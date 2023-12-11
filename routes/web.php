@@ -22,3 +22,8 @@ Route::prefix('categories')->name('category.')->group(function () {
 Route::prefix('articles')->name('article.')->group(function () {
   Route::inertia('/{id}', 'article/view')->name('view');
 });
+
+// === Dashboard Routes ===
+Route::prefix('dashboard')->name('dashboard.')->middleware('auth')->group(function () {
+  Route::inertia('/', 'dashboard/index')->name('index');
+});
