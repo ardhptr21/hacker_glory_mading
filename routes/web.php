@@ -31,6 +31,7 @@ Route::prefix('dashboard')->name('dashboard.')->middleware('auth')->group(functi
 
   // === Mading/Magazine Dashboard Routes ===
   Route::controller(DashboardMagazineController::class)->middleware('role:admin,guru,pengurus')->prefix('mading')->name('mading.')->group(function () {
+    Route::get('/', 'index')->name('index');
     Route::post('/', 'store')->name('store');
     Route::get('/create', 'create')->name('create');
   });

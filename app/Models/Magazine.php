@@ -19,6 +19,7 @@ class Magazine extends Model
     'article',
     'category_id',
     'author_id',
+    'published_at',
   ];
 
   public function sluggable(): array

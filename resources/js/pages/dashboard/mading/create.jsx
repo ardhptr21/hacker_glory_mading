@@ -1,18 +1,21 @@
 import DashboardLayout from '@/components/layouts/DashboardLayout';
 import Button from '@/components/ui/Button';
+import MagazineCard from '@/components/ui/card/MagazineCard';
 import Input from '@/components/ui/form/Input';
-import Textarea from '@/components/ui/form/Textarea';
-import { useForm } from '@inertiajs/react';
 import Select from '@/components/ui/form/Select';
-import Badge from '@/components/ui/Badge';
+import Textarea from '@/components/ui/form/Textarea';
+import { Link, useForm, usePage } from '@inertiajs/react';
 import { useState } from 'react';
 
 export default function CreateMagazine({ categories }) {
+  const { user } = usePage().props;
+
   const { data, setData, processing, errors, post, reset } = useForm({
     title: '',
     description: '',
     thumbnail: '',
     category_id: '',
+    published_at: '',
   });
   const [selectedCategory, setSelectedCategory] = useState('');
 
@@ -81,7 +84,24 @@ export default function CreateMagazine({ categories }) {
               isError={!!errors.thumbnail}
               disabled={processing}
             />
-            <div className="flex justify-end">
+            <Input
+              type="datetime-local"
+              label="Tanggal Terbit"
+              value={data.published_at}
+              onChange={(e) => setData('published_at', e.target.value)}
+              error={errors.published_at}
+              isError={!!errors.published_at}
+              disabled={processing}
+              required
+            />
+            <div className="flex justify-end gap-2">
+              <Button
+                as={Link}
+                href={route('dashboard.mading.index')}
+                variant="outline"
+              >
+                Batal
+              </Button>
               <Button type="submit" disabled={processing}>
                 Buat
               </Button>
@@ -89,22 +109,15 @@ export default function CreateMagazine({ categories }) {
           </form>
           <div className="flex-1 max-w-xl pl-10">
             <h3 className="text-lg font-semibold">Preview</h3>
-            <div className="mt-5">
-              <div className="space-y-2">
-                <div className="flex justify-end">
-                  {selectedCategory && <Badge text={selectedCategory} />}
-                </div>
-                {data.thumbnail && (
-                  <img
-                    src={URL.createObjectURL(data.thumbnail)}
-                    alt="preview"
-                    className="w-full"
-                  />
-                )}
-                <p className="text-3xl font-bold">{data.title}</p>
-                <p className="leading-relaxed">{data.description}</p>
-              </div>
-            </div>
+            <MagazineCard
+              className="mt-5"
+              title={data.title}
+              excerpt={data.description}
+              image={data.thumbnail ? URL.createObjectURL(data.thumbnail) : ''}
+              category={selectedCategory}
+              author={user?.name}
+              published_at={data.published_at}
+            />
           </div>
         </div>
       </section>

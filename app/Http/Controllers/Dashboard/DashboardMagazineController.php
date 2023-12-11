@@ -12,6 +12,12 @@ class DashboardMagazineController extends Controller
 {
   use UploadFile;
 
+  public function index()
+  {
+    $magazines = Magazine::with(['category:id,name', 'author:id,username'])->latest()->get();
+    return inertia('dashboard/mading/index', compact('magazines'));
+  }
+
   public function create()
   {
     $categories = Category::all();
@@ -29,6 +35,6 @@ class DashboardMagazineController extends Controller
       return back()->with('error', 'Gagal menambahkan mading, coba lagi.');
     }
 
-    return back()->with('success', 'Berhasil menambahkan mading.');
+    return to_route('dashboard.mading.index')->with('success', 'Berhasil menambahkan mading.');
   }
 }

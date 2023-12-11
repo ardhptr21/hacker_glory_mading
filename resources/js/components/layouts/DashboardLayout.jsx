@@ -13,6 +13,8 @@ export default function DashboardLayout({ children }) {
     {
       label: 'Mading',
       icon: Article,
+      route: route('dashboard.mading.index'),
+      active: route().current('dashboard.mading.index'),
     },
     {
       label: 'Category',

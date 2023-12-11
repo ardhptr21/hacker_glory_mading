@@ -1,64 +1,42 @@
 import DashboardLayout from '@/components/layouts/DashboardLayout';
 import Button from '@/components/ui/Button';
-import Input from '@/components/ui/form/Input';
 import Table from '@/components/ui/table/Table';
 import Td from '@/components/ui/table/Td';
 import Th from '@/components/ui/table/Th';
 import Tr from '@/components/ui/table/Tr';
-import { useForm } from '@inertiajs/react';
-import { Pencil, Plus, Trash } from '@phosphor-icons/react';
+import { Link } from '@inertiajs/react';
+import { Eye, Pencil, Plus, Trash } from '@phosphor-icons/react';
 
-export default function CategoryDashboard({ categories }) {
-  const { data, setData, errors, processing, post, reset } = useForm({
-    name: '',
-  });
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    post(route('dashboard.category.store'), {
-      onSuccess: () => {
-        reset();
-      },
-    });
-  };
-
+export default function DashboardMagazine({ magazines }) {
   return (
     <DashboardLayout>
-      <section>
-        <h1 className="text-xl font-bold">Kategori Dashboard</h1>
+      <section className="flex justify-between">
+        <h1 className="text-xl font-bold">Dashboard Mading</h1>
+        <Button as={Link} href={route('dashboard.mading.create')}>
+          <Plus />
+          Buat Baru
+        </Button>
       </section>
-
-      <section className="mt-10 ">
-        <form onSubmit={handleSubmit} className="flex justify-end gap-5">
-          <Input
-            placeholder="Tambah Kategori"
-            className="w-96"
-            value={data.name}
-            onChange={(e) => setData('name', e.target.value)}
-            error={errors.name}
-            isError={!!errors.name}
-            disabled={processing}
-          />
-          <Button type="submit" disabled={processing}>
-            <Plus />
-            Tambah
-          </Button>
-        </form>
+      <section>
         <div className="block py-8 pt-6 mt-5 bg-white shadow-sm rounded-xl px-9">
           <div className="overflow-x-auto">
             <Table>
               <thead className="align-bottom">
                 <tr className="font-bold">
                   <Th className="min-w-[50px]">#</Th>
-                  <Th className="min-w-[120px]">Nama</Th>
+                  <Th className="min-w-[120px]">Judul</Th>
+                  <Th className="min-w-[120px]">Author</Th>
+                  <Th className="min-w-[120px]">Category</Th>
                   <Th></Th>
                 </tr>
               </thead>
               <tbody>
-                {categories.map((category) => (
-                  <Tr key={category.slug}>
-                    <Td>{category.id}</Td>
-                    <Td>{category.name}</Td>
+                {magazines?.map((magazine) => (
+                  <Tr key={magazine.slug}>
+                    <Td>{magazine.id}</Td>
+                    <Td>{magazine.title}</Td>
+                    <Td>{magazine.author.username}</Td>
+                    <Td>{magazine.category.name}</Td>
                     <Td>
                       <div className="flex gap-5">
                         <Button
@@ -74,6 +52,13 @@ export default function CategoryDashboard({ categories }) {
                           variant="outline"
                         >
                           <Pencil />
+                        </Button>
+                        <Button
+                          size="box"
+                          className="text-blue-500 border-blue-500 hover:bg-blue-500"
+                          variant="outline"
+                        >
+                          <Eye />
                         </Button>
                       </div>
                     </Td>

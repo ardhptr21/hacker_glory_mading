@@ -26,6 +26,7 @@ class StoreMagazineRequest extends FormRequest
       'description' => 'required|string',
       'thumbnail' => 'required|image',
       'category_id' => 'required|exists:categories,id',
+      'published_at' => 'required|date',
     ];
   }
 }
