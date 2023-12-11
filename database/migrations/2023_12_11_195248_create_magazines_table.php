@@ -13,6 +13,8 @@ return new class extends Migration
   {
     Schema::create('magazines', function (Blueprint $table) {
       $table->id();
+      $table->foreignId('category_id')->constrained('categories')->onDelete('cascade');
+      $table->foreignId('author_id')->references('id')->on('users')->onDelete('cascade');
       $table->string('slug')->unique();
       $table->string('title', '100');
       $table->text('description');

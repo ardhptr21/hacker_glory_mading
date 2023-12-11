@@ -5,6 +5,7 @@ namespace App\Models;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Magazine extends Model
 {
@@ -16,6 +17,8 @@ class Magazine extends Model
     'thumbnail',
     'with_article',
     'article',
+    'category_id',
+    'author_id',
   ];
 
   public function sluggable(): array
@@ -26,5 +29,15 @@ class Magazine extends Model
         'onUpdate' => true,
       ],
     ];
+  }
+
+  public function category(): BelongsTo
+  {
+    return $this->belongsTo(Category::class);
+  }
+
+  public function author(): BelongsTo
+  {
+    return $this->belongsTo(User::class, 'author_id');
   }
 }

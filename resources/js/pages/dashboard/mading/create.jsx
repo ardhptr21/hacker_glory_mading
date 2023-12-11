@@ -3,19 +3,25 @@ import Button from '@/components/ui/Button';
 import Input from '@/components/ui/form/Input';
 import Textarea from '@/components/ui/form/Textarea';
 import { useForm } from '@inertiajs/react';
+import Select from '@/components/ui/form/Select';
+import Badge from '@/components/ui/Badge';
+import { useState } from 'react';
 
-export default function CreateMagazine() {
+export default function CreateMagazine({ categories }) {
   const { data, setData, processing, errors, post, reset } = useForm({
     title: '',
     description: '',
     thumbnail: '',
+    category_id: '',
   });
+  const [selectedCategory, setSelectedCategory] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    post(route('mading.store'), {
+    post(route('dashboard.mading.store'), {
       onSuccess: () => {
         reset();
+        setSelectedCategory('');
       },
     });
   };
@@ -37,6 +43,23 @@ export default function CreateMagazine() {
               disabled={processing}
               required
             />
+            <Select
+              label="Kategori"
+              placeholder="Pilih kategori"
+              value={data.category_id}
+              onChange={(e) => {
+                setData('category_id', e.target.value),
+                  setSelectedCategory(
+                    e.target.options[e.target.selectedIndex].text
+                  );
+              }}
+            >
+              {categories?.map((category) => (
+                <option key={category.id} value={category.id}>
+                  {category.name}
+                </option>
+              ))}
+            </Select>
             <Textarea
               label="Deskripsi"
               placeholder="Masukkan deskripsi mading"
@@ -68,6 +91,9 @@ export default function CreateMagazine() {
             <h3 className="text-lg font-semibold">Preview</h3>
             <div className="mt-5">
               <div className="space-y-2">
+                <div className="flex justify-end">
+                  {selectedCategory && <Badge text={selectedCategory} />}
+                </div>
                 {data.thumbnail && (
                   <img
                     src={URL.createObjectURL(data.thumbnail)}

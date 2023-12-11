@@ -17,6 +17,7 @@ class DashboardCategoryController extends Controller
   public function store(StoreCategoryRequest $request)
   {
     $data = $request->validated();
+    $data['author_id'] = auth()->id();
     $category = Category::create($data);
 
     if (!$category) {
