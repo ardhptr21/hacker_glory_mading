@@ -17,6 +17,8 @@ export default function DashboardLayout({ children }) {
     {
       label: 'Category',
       icon: Hash,
+      route: route('dashboard.category.index'),
+      active: route().current('dashboard.category.index'),
     },
     {
       label: 'Users',

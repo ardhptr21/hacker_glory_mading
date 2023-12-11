@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\Dashboard\DashboardCategoryController;
 use App\Http\Controllers\MagazineController;
 use Illuminate\Support\Facades\Route;
 
@@ -32,8 +33,13 @@ Route::prefix('dashboard')->name('dashboard.')->middleware('auth')->group(functi
   Route::prefix('mading')->name('mading.')->group(function () {
     Route::inertia('/create', 'dashboard/mading/create')->name('create')->middleware('role:admin,guru,pengurus');
   });
-});
 
+  // === Dashboard Category Routes ===
+  Route::controller(DashboardCategoryController::class)->prefix('categories')->name('category.')->group(function () {
+    Route::get('/', 'index')->name('index')->middleware('role:admin,guru,pengurus');
+    Route::post('/', 'store')->name('store')->middleware('role:admin,guru,pengurus');
+  });
+});
 
 // === Mading/Magazine Routes ===
 Route::controller(MagazineController::class)->prefix('mading')->name('mading.')->group(function () {
