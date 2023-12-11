@@ -1,29 +1,25 @@
 import Filter from '@/components/partials/Filter';
+import Button from '@/components/ui/Button';
 import MagazineCard from '@/components/ui/card/MagazineCard';
+import { Link } from '@inertiajs/react';
+import { ArrowLeft } from '@phosphor-icons/react';
 
-export default function Home() {
+export default function ViewCategory() {
   return (
-    <main className="container min-h-screen">
-      <section className="flex flex-col-reverse items-center justify-center w-full h-screen gap-10 md:gap-28 md:flex-row">
-        <div className="space-y-5 text-center md:space-y-10 md:text-left">
-          <h1 className="text-5xl font-extrabold md:text-8xl">
-            Hacker Glory Mading
-          </h1>
-          <p className="md:text-xl">
-            Informasi - informasi terbaru mengenai hal - hal yang seru dan
-            penting akan selalu kamu dapatkan disini.
-          </p>
+    <main className="container">
+      <section className="flex flex-col justify-center gap-10">
+        <div className="flex items-center justify-between">
+          <Button as={Link} href="/" variant="outline">
+            <ArrowLeft />
+            Kembali
+          </Button>
+          <p className="font-bold">CATEGORY</p>
         </div>
-        <div>
-          <img
-            src="/illustrations/absurd-book.png"
-            alt="Absurd Book"
-            data-credit="https://absurd.design/"
-            className="w-full max-w-3xl"
-          />
-        </div>
+        <h1 className="mx-auto font-extrabold text-center uppercase before:-z-10 text-9xl max-w-max">
+          ART
+        </h1>
       </section>
-      <Filter />
+      <Filter categoryTitle="OTHER CATEGORIES" className="mt-24" />
       <section className="grid grid-cols-1 gap-5 mt-16 md:grid-cols-3">
         {Array.from({ length: 12 }).map((_, index) => (
           <MagazineCard

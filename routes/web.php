@@ -12,3 +12,8 @@ Route::controller(AuthController::class)->prefix('auth')->name('auth.')->middlew
   Route::post('login', 'login');
   Route::post('register', 'register');
 });
+
+// === Category Routes ===
+Route::prefix('categories')->name('category.')->group(function () {
+  Route::inertia('/{id}', 'category/view')->name('view');
+});
