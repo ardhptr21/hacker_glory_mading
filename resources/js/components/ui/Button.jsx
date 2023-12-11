@@ -17,7 +17,7 @@ export default function Button({
   return (
     <Component
       className={clsx([
-        'flex justify-center items-center py-3 px-5 rounded-lg min-w-[120px] border-2 transition-all duration-300 disabled:cursor-not-allowed disabled:opacity-60',
+        'flex justify-center items-center gap-2 py-3 px-5 rounded-lg min-w-[120px] border-2 transition-all duration-300 disabled:cursor-not-allowed disabled:opacity-60',
         variants[variant],
         { [className]: !!className },
       ])}

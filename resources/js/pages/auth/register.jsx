@@ -19,7 +19,7 @@ export default function Register() {
 
   return (
     <main className="flex items-center justify-center w-screen h-screen">
-      <div className="w-full max-w-lg p-16 space-y-16 bg-gray-100 rounded-xl">
+      <div className="w-full max-w-lg p-16 space-y-16 bg-white rounded-xl">
         <div className="space-y-3">
           <h1 className="text-3xl font-bold">Daftar</h1>
           <p className="text-sm">Silahkan daftar untuk membuat akun baru.</p>
@@ -27,7 +27,7 @@ export default function Register() {
         <form onSubmit={handleSubmit}>
           <div className="space-y-5">
             <Input
-              placeholder="Nama"
+              placeholder="Masukkan Nama"
               value={data.name}
               onChange={(e) => setData('name', e.target.value)}
               disabled={processing}
@@ -37,7 +37,7 @@ export default function Register() {
             />
             <Input
               type="email"
-              placeholder="Email"
+              placeholder="Masukkan Email"
               value={data.email}
               onChange={(e) => setData('email', e.target.value)}
               disabled={processing}
@@ -46,7 +46,7 @@ export default function Register() {
               required
             />
             <Input
-              placeholder="Username"
+              placeholder="Masukkan Username"
               value={data.username}
               onChange={(e) => setData('username', e.target.value)}
               disabled={processing}
@@ -56,7 +56,7 @@ export default function Register() {
             />
             <Input
               type="nis"
-              placeholder="NIS"
+              placeholder="Masukkan NIS"
               value={data.nis}
               onChange={(e) => setData('nis', e.target.value)}
               disabled={processing}
@@ -68,7 +68,7 @@ export default function Register() {
             />
             <Input
               type="password"
-              placeholder="Password"
+              placeholder="Masukkan Password"
               value={data.password}
               onChange={(e) => setData('password', e.target.value)}
               disabled={processing}

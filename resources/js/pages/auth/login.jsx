@@ -17,7 +17,7 @@ export default function Login() {
 
   return (
     <main className="flex items-center justify-center w-screen h-screen">
-      <div className="w-full max-w-lg p-16 space-y-16 bg-gray-100 rounded-xl">
+      <div className="w-full max-w-lg p-16 space-y-16 bg-white rounded-xl">
         <div className="space-y-3">
           <h1 className="text-3xl font-bold">Login</h1>
           <p className="text-sm">

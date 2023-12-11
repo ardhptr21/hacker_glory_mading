@@ -10,7 +10,7 @@
   @inertiaHead()
 </head>
 
-<body>
+<body class="py-10 bg-gray-100">
   @routes()
   @inertia()
 </body>

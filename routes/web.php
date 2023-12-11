@@ -3,7 +3,7 @@
 use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 
-Route::inertia('/', 'home')->middleware(['auth']);
+Route::inertia('/', 'home');
 
 // === Auth Routes ===
 Route::controller(AuthController::class)->prefix('auth')->name('auth.')->middleware('guest')->group(function () {

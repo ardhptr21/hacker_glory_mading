@@ -14,6 +14,7 @@
   },
   "dependencies": {
     "@inertiajs/react": "^1.0.14",
+    "@phosphor-icons/react": "^2.0.15",
     "@vitejs/plugin-react": "^4.2.1",
     "clsx": "^2.0.0",
     "react": "^18.2.0",
