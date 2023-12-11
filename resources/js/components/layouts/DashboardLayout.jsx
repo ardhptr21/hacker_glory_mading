@@ -1,5 +1,5 @@
 import { Link } from '@inertiajs/react';
-import { Article, Gauge, Users } from '@phosphor-icons/react';
+import { Article, Gauge, Hash, Users } from '@phosphor-icons/react';
 import clsx from 'clsx';
 
 export default function DashboardLayout({ children }) {
@@ -11,8 +11,12 @@ export default function DashboardLayout({ children }) {
       active: route().current('dashboard.index'),
     },
     {
-      label: 'Majalah',
+      label: 'Mading',
       icon: Article,
+    },
+    {
+      label: 'Category',
+      icon: Hash,
     },
     {
       label: 'Users',
@@ -42,7 +46,7 @@ export default function DashboardLayout({ children }) {
           </Link>
         ))}
       </aside>
-      <main className="flex-1 p-10">{children}</main>
+      <main className="flex-1 h-screen p-10 overflow-y-auto">{children}</main>
     </div>
   );
 }

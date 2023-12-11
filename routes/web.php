@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\MagazineController;
 use Illuminate\Support\Facades\Route;
 
 Route::inertia('/', 'home');
@@ -19,11 +20,22 @@ Route::prefix('categories')->name('category.')->group(function () {
 });
 
 // === Magazine Article View ====
-Route::prefix('articles')->name('article.')->group(function () {
-  Route::inertia('/{id}', 'article/view')->name('view');
+Route::prefix('mading')->name('mading.')->group(function () {
+  Route::inertia('/{id}', 'mading/view')->name('view');
 });
 
 // === Dashboard Routes ===
 Route::prefix('dashboard')->name('dashboard.')->middleware('auth')->group(function () {
   Route::inertia('/', 'dashboard/index')->name('index');
+
+  // === Mading/Magazine Dashboard Routes ===
+  Route::prefix('mading')->name('mading.')->group(function () {
+    Route::inertia('/create', 'dashboard/mading/create')->name('create')->middleware('role:admin,guru,pengurus');
+  });
+});
+
+
+// === Mading/Magazine Routes ===
+Route::controller(MagazineController::class)->prefix('mading')->name('mading.')->group(function () {
+  Route::post('/', 'store')->name('store')->middleware('role:admin,guru,pengurus');
 });

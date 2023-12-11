@@ -1,7 +1,6 @@
 import clsx from 'clsx';
 
-export default function Input({
-  type = 'text',
+export default function Textarea({
   label,
   isError,
   error,
@@ -15,8 +14,7 @@ export default function Input({
           {label}
         </label>
       )}
-      <input
-        type={type}
+      <textarea
         className={clsx([
           'w-full px-5 py-3 border rounded-lg outline-none border-black placeholder:text-sm disabled:cursor-not-allowed disabled:bg-gray-100/60 focus:ring-2 ring-black/40',
           {
