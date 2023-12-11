@@ -17,3 +17,8 @@ Route::controller(AuthController::class)->prefix('auth')->name('auth.')->middlew
 Route::prefix('categories')->name('category.')->group(function () {
   Route::inertia('/{id}', 'category/view')->name('view');
 });
+
+// === Magazine Article View ====
+Route::prefix('articles')->name('article.')->group(function () {
+  Route::inertia('/{id}', 'article/view')->name('view');
+});
