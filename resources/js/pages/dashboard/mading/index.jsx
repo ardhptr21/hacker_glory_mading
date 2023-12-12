@@ -4,10 +4,17 @@ import Table from '@/components/ui/table/Table';
 import Td from '@/components/ui/table/Td';
 import Th from '@/components/ui/table/Th';
 import Tr from '@/components/ui/table/Tr';
-import { Link } from '@inertiajs/react';
+import { Link, useForm } from '@inertiajs/react';
 import { Eye, Pencil, Plus, Trash } from '@phosphor-icons/react';
 
 export default function DashboardMagazine({ magazines }) {
+  const { delete: destroy } = useForm({});
+
+  const handleDelete = (slug) => {
+    confirm('Apakah kamu yakin ingin menghapus mading ini?') &&
+      destroy(route('dashboard.mading.destroy', slug));
+  };
+
   return (
     <DashboardLayout>
       <section className="flex justify-between">
@@ -31,15 +38,16 @@ export default function DashboardMagazine({ magazines }) {
                 </tr>
               </thead>
               <tbody>
-                {magazines?.map((magazine) => (
+                {magazines?.map((magazine, index) => (
                   <Tr key={magazine.slug}>
-                    <Td>{magazine.id}</Td>
+                    <Td>{index + 1}</Td>
                     <Td>{magazine.title}</Td>
                     <Td>{magazine.author.username}</Td>
                     <Td>{magazine.category.name}</Td>
                     <Td>
                       <div className="flex gap-5">
                         <Button
+                          onClick={() => handleDelete(magazine.slug)}
                           size="box"
                           className="text-red-500 border-red-500 hover:bg-red-500"
                           variant="outline"
@@ -47,6 +55,8 @@ export default function DashboardMagazine({ magazines }) {
                           <Trash />
                         </Button>
                         <Button
+                          as={Link}
+                          href={route('dashboard.mading.edit', magazine.slug)}
                           size="box"
                           className="text-yellow-500 border-yellow-500 hover:bg-yellow-500"
                           variant="outline"

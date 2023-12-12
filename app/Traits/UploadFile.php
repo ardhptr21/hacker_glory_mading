@@ -24,6 +24,6 @@ trait UploadFile
 
   public function delete($path)
   {
-    Storage::delete($path);
+    Storage::disk('public')->delete($path);
   }
 }

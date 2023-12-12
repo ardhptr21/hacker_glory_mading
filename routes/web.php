@@ -41,6 +41,9 @@ Route::prefix('dashboard')->name('dashboard.')->middleware('auth')->group(functi
     Route::get('/', 'index')->name('index');
     Route::post('/', 'store')->name('store');
     Route::get('/create', 'create')->name('create');
+    Route::put('/{magazine:slug}', 'update')->name('update');
+    Route::get('/{magazine:slug}/edit', 'edit')->name('edit');
+    Route::delete('/{magazine:slug}', 'destroy')->name('destroy');
   });
 
   // === Dashboard Category Routes ===
