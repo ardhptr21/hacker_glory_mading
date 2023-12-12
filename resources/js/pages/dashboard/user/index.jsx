@@ -4,9 +4,17 @@ import Table from '@/components/ui/table/Table';
 import Td from '@/components/ui/table/Td';
 import Th from '@/components/ui/table/Th';
 import Tr from '@/components/ui/table/Tr';
+import { useForm } from '@inertiajs/react';
 import { Eye, Pencil, Trash } from '@phosphor-icons/react';
 
 export default function index({ users }) {
+  const { delete: destroy } = useForm();
+
+  const handleDelete = (username) => {
+    confirm('Yakin ingin menghapus user ini?') &&
+      destroy(route('dashboard.user.destroy', username));
+  };
+
   return (
     <DashboardLayout>
       <section>
@@ -37,6 +45,7 @@ export default function index({ users }) {
                     <Td>
                       <div className="flex gap-5">
                         <Button
+                          onClick={() => handleDelete(user.username)}
                           size="box"
                           className="text-red-500 border-red-500 hover:bg-red-500"
                           variant="outline"

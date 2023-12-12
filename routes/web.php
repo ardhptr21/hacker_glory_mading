@@ -40,6 +40,7 @@ Route::prefix('dashboard')->name('dashboard.')->middleware('auth')->group(functi
   // === User Routes ===
   Route::controller(DashboardUserController::class)->middleware('role:admin')->prefix('users')->name('user.')->group(function () {
     Route::get('/', 'index')->name('index');
+    Route::delete('/{user:username}', 'destroy')->name('destroy');
   });
 
   // === Mading/Magazine Dashboard Routes ===
