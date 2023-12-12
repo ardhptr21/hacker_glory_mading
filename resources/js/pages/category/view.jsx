@@ -4,7 +4,7 @@ import MagazineCard from '@/components/ui/card/MagazineCard';
 import { Link } from '@inertiajs/react';
 import { ArrowLeft } from '@phosphor-icons/react';
 
-export default function ViewCategory() {
+export default function ViewCategory({ category, magazines }) {
   return (
     <main className="container">
       <section className="flex flex-col justify-center gap-10">
@@ -13,23 +13,26 @@ export default function ViewCategory() {
             <ArrowLeft />
             Kembali
           </Button>
-          <p className="font-bold">CATEGORY</p>
+          <p className="font-bold">KATEGORI</p>
         </div>
         <h1 className="mx-auto font-extrabold text-center uppercase before:-z-10 text-9xl max-w-max">
-          ART
+          {category.name}
         </h1>
       </section>
       <Filter categoryTitle="OTHER CATEGORIES" className="mt-24" />
       <section className="grid grid-cols-1 gap-5 mt-16 md:grid-cols-3">
-        {Array.from({ length: 12 }).map((_, index) => (
+        {magazines.map((magazine) => (
           <MagazineCard
-            key={index}
-            title="Hope die last"
-            excerpt="Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex ab, ipsa reiciendis earum iusto ullam enim dicta esse dignissimos, vel voluptatibus itaque vero sit sequi doloribus commodi quasi ducimus nemo!"
-            image="https://juliannakunstler.com/images_art1/color/monochromatic/1.jpg"
-            category="ART"
-            author="Ardhi Putra"
-            published_at="16 Maret 2023"
+            className="break-inside-avoid mb-5"
+            key={magazine.slug}
+            title={magazine.title}
+            excerpt={magazine.description}
+            image={`/storage/${magazine.thumbnail}`}
+            category={category.name}
+            author={magazine.author.username}
+            published_at={magazine.published_at}
+            category_slug={category.slug}
+            slug={magazine.slug}
           />
         ))}
       </section>

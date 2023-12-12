@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\Dashboard\DashboardCategoryController;
 use App\Http\Controllers\Dashboard\DashboardMagazineController;
 use App\Http\Controllers\ImageUploadController;
@@ -22,8 +23,8 @@ Route::controller(AuthController::class)->prefix('auth')->name('auth.')->middlew
 });
 
 // === Category Routes ===
-Route::prefix('categories')->name('category.')->group(function () {
-  Route::inertia('/{id}', 'category/view')->name('view');
+Route::controller(CategoryController::class)->prefix('categories')->name('category.')->group(function () {
+  Route::get('/{category:slug}', 'view')->name('view');
 });
 
 // === Magazine/Mading Routes ====
