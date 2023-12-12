@@ -5,9 +5,13 @@ use App\Http\Controllers\Dashboard\DashboardCategoryController;
 use App\Http\Controllers\Dashboard\DashboardMagazineController;
 use App\Http\Controllers\ImageUploadController;
 use App\Http\Controllers\MagazineController;
+use App\Http\Controllers\PageController;
 use Illuminate\Support\Facades\Route;
 
-Route::inertia('/', 'home');
+// === General Page Routes ===
+Route::controller(PageController::class)->name('page.')->group(function () {
+  Route::get('/', 'home')->name('home');
+});
 
 // === Auth Routes ===
 Route::controller(AuthController::class)->prefix('auth')->name('auth.')->middleware('guest')->group(function () {

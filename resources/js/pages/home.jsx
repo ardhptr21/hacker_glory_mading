@@ -1,7 +1,7 @@
 import Filter from '@/components/partials/Filter';
 import MagazineCard from '@/components/ui/card/MagazineCard';
 
-export default function Home() {
+export default function Home({ magazines }) {
   return (
     <main className="container min-h-screen">
       <section className="flex flex-col-reverse items-center justify-center w-full h-screen gap-10 md:gap-28 md:flex-row">
@@ -24,16 +24,19 @@ export default function Home() {
         </div>
       </section>
       <Filter />
-      <section className="grid grid-cols-1 gap-5 mt-16 md:grid-cols-3">
-        {Array.from({ length: 12 }).map((_, index) => (
+      <section className="columns-sm gap-5 mt-16">
+        {magazines.map((magazine) => (
           <MagazineCard
-            key={index}
-            title="Hope die last"
-            excerpt="Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex ab, ipsa reiciendis earum iusto ullam enim dicta esse dignissimos, vel voluptatibus itaque vero sit sequi doloribus commodi quasi ducimus nemo!"
-            image="https://juliannakunstler.com/images_art1/color/monochromatic/1.jpg"
-            category="ART"
-            author="Ardhi Putra"
-            published_at="16 Maret 2023"
+            className="break-inside-avoid mb-5"
+            key={magazine.slug}
+            title={magazine.title}
+            excerpt={magazine.description}
+            image={`/storage/${magazine.thumbnail}`}
+            category={magazine.category.name}
+            author={magazine.author.username}
+            published_at={magazine.published_at}
+            category_slug={magazine.category.slug}
+            slug={magazine.slug}
           />
         ))}
       </section>

@@ -37,7 +37,7 @@ export default function ViewMagazineArticle({ magazine }) {
           </div>
           <Badge text={magazine.category.name} />
         </div>
-        <div className="w-full bg-red-500 aspect-video">
+        <div className="w-full bg-white aspect-video overflow-hidden">
           <img
             className="object-cover w-full h-full"
             src={`/storage/${magazine.thumbnail}`}
