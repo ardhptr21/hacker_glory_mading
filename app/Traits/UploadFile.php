@@ -12,15 +12,18 @@ trait UploadFile
     if ($old) {
       $this->delete($old);
     }
-    $path = $identifier . '-' . floor(microtime(true) * 1000) . '-' . $file->getClientOriginalName();
+    $filename = $identifier . '-' . floor(microtime(true) * 1000) . '-' . $file->getClientOriginalName();
+    $destination = 'uploads/';
+    if ($dir) {
+      $destination .= $dir . '/';
+    }
 
-    $path = 'uploads/' . $dir . '/' . $path;
-    Storage::disk('public')->put($path, $file);
-    return $path;
+    Storage::disk('public')->putFileAs($destination, $file, $filename);
+    return $destination . $filename;
   }
 
-  public function delete($file)
+  public function delete($path)
   {
-    Storage::delete($file);
+    Storage::delete($path);
   }
 }

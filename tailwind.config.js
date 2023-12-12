@@ -3,6 +3,15 @@ module.exports = {
   content: ['./resources/**/*.blade.php', './resources/**/*.{js,jsx}'],
   theme: {
     extend: {
+      typography: {
+        DEFAULT: {
+          css: {
+            p: {
+              margin: '0 !important',
+            },
+          },
+        },
+      },
       container: {
         center: true,
         padding: {
@@ -18,5 +27,5 @@ module.exports = {
       },
     },
   },
-  plugins: [],
+  plugins: [require('@tailwindcss/typography')],
 };

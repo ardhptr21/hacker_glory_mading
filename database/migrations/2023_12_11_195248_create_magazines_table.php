@@ -19,7 +19,6 @@ return new class extends Migration
       $table->string('title', '100');
       $table->text('description');
       $table->string('thumbnail');
-      $table->boolean('with_article')->default(false);
       $table->text('article')->nullable();
       $table->timestamp('published_at');
       $table->timestamps();

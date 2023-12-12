@@ -1,4 +1,5 @@
 import DashboardLayout from '@/components/layouts/DashboardLayout';
+import Editor from '@/components/partials/Editor';
 import Button from '@/components/ui/Button';
 import MagazineCard from '@/components/ui/card/MagazineCard';
 import Input from '@/components/ui/form/Input';
@@ -16,6 +17,7 @@ export default function CreateMagazine({ categories }) {
     thumbnail: '',
     category_id: '',
     published_at: '',
+    article: '',
   });
   const [selectedCategory, setSelectedCategory] = useState('');
 
@@ -94,6 +96,11 @@ export default function CreateMagazine({ categories }) {
               disabled={processing}
               required
             />
+            <Editor
+              label="Artikel"
+              value={data.article}
+              onChange={(v) => setData('article', v)}
+            />
             <div className="flex justify-end gap-2">
               <Button
                 as={Link}
@@ -108,7 +115,7 @@ export default function CreateMagazine({ categories }) {
             </div>
           </form>
           <div className="flex-1 max-w-xl pl-10">
-            <h3 className="text-lg font-semibold">Preview</h3>
+            <h3 className="text-lg font-semibold">Preview Card</h3>
             <MagazineCard
               className="mt-5"
               title={data.title}
