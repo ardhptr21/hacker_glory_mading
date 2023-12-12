@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\Dashboard\DashboardCategoryController;
 use App\Http\Controllers\Dashboard\DashboardMagazineController;
+use App\Http\Controllers\Dashboard\DashboardUserController;
 use App\Http\Controllers\ImageUploadController;
 use App\Http\Controllers\MagazineController;
 use App\Http\Controllers\PageController;
@@ -35,6 +36,11 @@ Route::controller(MagazineController::class)->prefix('mading')->name('mading.')-
 // === Dashboard Routes ===
 Route::prefix('dashboard')->name('dashboard.')->middleware('auth')->group(function () {
   Route::inertia('/', 'dashboard/index')->name('index');
+
+  // === User Routes ===
+  Route::controller(DashboardUserController::class)->middleware('role:admin')->prefix('users')->name('user.')->group(function () {
+    Route::get('/', 'index')->name('index');
+  });
 
   // === Mading/Magazine Dashboard Routes ===
   Route::controller(DashboardMagazineController::class)->middleware('role:admin,guru,pengurus')->prefix('mading')->name('mading.')->group(function () {

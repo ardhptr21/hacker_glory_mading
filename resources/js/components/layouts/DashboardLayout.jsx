@@ -25,6 +25,8 @@ export default function DashboardLayout({ children }) {
     {
       label: 'Users',
       icon: Users,
+      route: route('dashboard.user.index'),
+      active: route().current('dashboard.user.index'),
     },
   ];
 
