@@ -1,3 +1,4 @@
+import GeneralLayout from '@/components/layouts/GeneralLayout';
 import Badge from '@/components/ui/Badge';
 import Button from '@/components/ui/Button';
 import { Link } from '@inertiajs/react';
@@ -6,14 +7,14 @@ import 'react-quill/dist/quill.snow.css';
 
 export default function ViewMagazineArticle({ magazine }) {
   return (
-    <main className="container">
+    <GeneralLayout className="pt-24">
       <section className="flex flex-col justify-center gap-10">
         <div className="flex items-center justify-between">
           <Button as={Link} href="/" variant="outline">
             <ArrowLeft />
             Kembali
           </Button>
-          <p className="font-bold">CATEGORY</p>
+          <p className="font-bold">MADING</p>
         </div>
       </section>
       <section className="flex items-center justify-center gap-40 mt-20">
@@ -37,7 +38,7 @@ export default function ViewMagazineArticle({ magazine }) {
           </div>
           <Badge text={magazine.category.name} />
         </div>
-        <div className="w-full bg-white aspect-video overflow-hidden">
+        <div className="w-full overflow-hidden bg-white aspect-video">
           <img
             className="object-cover w-full h-full"
             src={`/storage/${magazine.thumbnail}`}
@@ -72,15 +73,15 @@ export default function ViewMagazineArticle({ magazine }) {
                 </div>
               </div>
             </div>
-            <div className="max-w-2xl w-full">
+            <div className="w-full max-w-2xl">
               <div
-                className="prose max-w-none prose-lg prose-ol:ml-5 prose-ul:ml-5"
+                className="prose prose-lg max-w-none prose-ol:ml-5 prose-ul:ml-5"
                 dangerouslySetInnerHTML={{ __html: magazine.article }}
               ></div>
             </div>
           </div>
         )}
       </section>
-    </main>
+    </GeneralLayout>
   );
 }

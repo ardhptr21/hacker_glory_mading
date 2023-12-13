@@ -1,15 +1,21 @@
 import DashboardLayout from '@/components/layouts/DashboardLayout';
 import OverviewCard from '@/components/ui/card/OverviewCard';
+import { usePage } from '@inertiajs/react';
 import { Article, Eye, Hourglass, Users } from '@phosphor-icons/react';
 
 export default function Dashboard() {
+  const { user } = usePage().props;
+
   return (
     <DashboardLayout>
       <h1 className="text-xl font-bold">Dashboard</h1>
 
       <section className="relative flex items-center justify-between py-20 mt-10 space-y-2 shadow-sm px-36 bg-yellow-50 rounded-xl">
         <div>
-          <h3 className="text-2xl font-bold">Selamat datang Ardhi 👋</h3>
+          <h3 className="text-2xl ">
+            <span className="font-semibold">Selamat datang</span>{' '}
+            <span className="font-bold">{user.name}</span> 👋
+          </h3>
           <p>
             Ayo mulai kelola setiap hal yang ada, dan jangan lupa untuk selalu
             jaga kesehatan!

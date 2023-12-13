@@ -1,9 +1,10 @@
 import Filter from '@/components/partials/Filter';
 import MagazineCard from '@/components/ui/card/MagazineCard';
+import GeneralLayout from '../components/layouts/GeneralLayout';
 
 export default function Home({ magazines }) {
   return (
-    <main className="container min-h-screen">
+    <GeneralLayout>
       <section className="flex flex-col-reverse items-center justify-center w-full h-screen gap-10 md:gap-28 md:flex-row">
         <div className="space-y-5 text-center md:space-y-10 md:text-left">
           <h1 className="text-5xl font-extrabold md:text-8xl">
@@ -24,10 +25,10 @@ export default function Home({ magazines }) {
         </div>
       </section>
       <Filter />
-      <section className="columns-sm gap-5 mt-16">
+      <section className="gap-5 mt-16 columns-sm">
         {magazines.map((magazine) => (
           <MagazineCard
-            className="break-inside-avoid mb-5"
+            className="mb-5 break-inside-avoid"
             key={magazine.slug}
             title={magazine.title}
             excerpt={magazine.description}
@@ -40,6 +41,6 @@ export default function Home({ magazines }) {
           />
         ))}
       </section>
-    </main>
+    </GeneralLayout>
   );
 }

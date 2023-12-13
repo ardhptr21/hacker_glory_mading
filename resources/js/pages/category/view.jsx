@@ -1,3 +1,4 @@
+import GeneralLayout from '@/components/layouts/GeneralLayout';
 import Filter from '@/components/partials/Filter';
 import Button from '@/components/ui/Button';
 import MagazineCard from '@/components/ui/card/MagazineCard';
@@ -6,7 +7,7 @@ import { ArrowLeft } from '@phosphor-icons/react';
 
 export default function ViewCategory({ category, magazines }) {
   return (
-    <main className="container">
+    <GeneralLayout className="pt-24">
       <section className="flex flex-col justify-center gap-10">
         <div className="flex items-center justify-between">
           <Button as={Link} href="/" variant="outline">
@@ -23,7 +24,7 @@ export default function ViewCategory({ category, magazines }) {
       <section className="grid grid-cols-1 gap-5 mt-16 md:grid-cols-3">
         {magazines.map((magazine) => (
           <MagazineCard
-            className="break-inside-avoid mb-5"
+            className="mb-5 break-inside-avoid"
             key={magazine.slug}
             title={magazine.title}
             excerpt={magazine.description}
@@ -36,6 +37,6 @@ export default function ViewCategory({ category, magazines }) {
           />
         ))}
       </section>
-    </main>
+    </GeneralLayout>
   );
 }
