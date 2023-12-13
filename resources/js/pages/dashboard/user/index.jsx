@@ -1,4 +1,5 @@
 import DashboardLayout from '@/components/layouts/DashboardLayout';
+import FilterDashboard from '@/components/partials/FilterDashboard';
 import PaginationTable from '@/components/partials/PaginationTable';
 import Button from '@/components/ui/Button';
 import Table from '@/components/ui/table/Table';
@@ -7,14 +8,18 @@ import Th from '@/components/ui/table/Th';
 import Tr from '@/components/ui/table/Tr';
 import { Link, useForm } from '@inertiajs/react';
 import { Eye, Plus, Trash } from '@phosphor-icons/react';
-import FilterDashboard from '@/components/partials/FilterDashboard';
+import clsx from 'clsx';
+import toast from 'react-hot-toast';
 
-export default function UserDashboard({ users }) {
+export default function UserDashboard({ users, user: auth }) {
   const { delete: destroy } = useForm();
 
   const handleDelete = (username) => {
     confirm('Yakin ingin menghapus user ini?') &&
-      destroy(route('dashboard.user.destroy', username));
+      destroy(route('dashboard.user.destroy', username), {
+        onSuccess: () => toast.success('User berhasil dihapus.'),
+        onError: () => toast.error('User gagal dihapus.'),
+      });
   };
 
   return (
@@ -56,32 +61,37 @@ export default function UserDashboard({ users }) {
               </thead>
               <tbody>
                 {users?.data?.map((user, index) => (
-                  <Tr key={user.username}>
+                  <Tr
+                    key={user.username}
+                    className={clsx([{ 'bg-yellow-50': user.id === auth.id }])}
+                  >
                     <Td>{index + users.from}</Td>
                     <Td>{user.name}</Td>
                     <Td>{user.username}</Td>
                     <Td>{user.email}</Td>
                     <Td>{user.role}</Td>
                     <Td>
-                      <div className="flex gap-5">
-                        <Button
-                          onClick={() => handleDelete(user.username)}
-                          size="box"
-                          className="text-red-500 border-red-500 hover:bg-red-500"
-                          variant="outline"
-                        >
-                          <Trash />
-                        </Button>
-                        <Button
-                          as={Link}
-                          href={route('dashboard.user.view', user.username)}
-                          size="box"
-                          className="text-blue-500 border-blue-500 hover:bg-blue-500"
-                          variant="outline"
-                        >
-                          <Eye />
-                        </Button>
-                      </div>
+                      {user.id !== auth.id && (
+                        <div className="flex gap-5">
+                          <Button
+                            onClick={() => handleDelete(user.username)}
+                            size="box"
+                            className="text-red-500 border-red-500 hover:bg-red-500"
+                            variant="outline"
+                          >
+                            <Trash />
+                          </Button>
+                          <Button
+                            as={Link}
+                            href={route('dashboard.user.view', user.username)}
+                            size="box"
+                            className="text-blue-500 border-blue-500 hover:bg-blue-500"
+                            variant="outline"
+                          >
+                            <Eye />
+                          </Button>
+                        </div>
+                      )}
                     </Td>
                   </Tr>
                 ))}

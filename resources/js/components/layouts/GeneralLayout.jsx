@@ -1,6 +1,7 @@
 import { usePage } from '@inertiajs/react';
 import Navbar from '../partials/Navbar';
 import clsx from 'clsx';
+import { Toaster } from 'react-hot-toast';
 
 export default function GeneralLayout({ children, className }) {
   usePage;
@@ -16,6 +17,7 @@ export default function GeneralLayout({ children, className }) {
       >
         {children}
       </main>
+      <Toaster />
     </>
   );
 }

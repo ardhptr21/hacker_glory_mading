@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
@@ -45,6 +46,13 @@ class Magazine extends Model
   public function author(): BelongsTo
   {
     return $this->belongsTo(User::class, 'author_id');
+  }
+
+  public function publishedAt(): Attribute
+  {
+    return Attribute::make(
+      get: fn ($value) => Carbon::parse($value)->translatedFormat('d F, Y H:i'),
+    );
   }
 
   protected function isPublished(): Attribute

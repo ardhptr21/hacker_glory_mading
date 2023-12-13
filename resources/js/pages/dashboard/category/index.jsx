@@ -9,6 +9,7 @@ import Tr from '@/components/ui/table/Tr';
 import { useForm } from '@inertiajs/react';
 import { Check, Pencil, Plus, Trash, X } from '@phosphor-icons/react';
 import { useState } from 'react';
+import toast from 'react-hot-toast';
 import FilterDashboard from '../../../components/partials/FilterDashboard';
 
 export default function CategoryDashboard({ categories }) {
@@ -32,7 +33,9 @@ export default function CategoryDashboard({ categories }) {
     post(route('dashboard.category.store'), {
       onSuccess: () => {
         reset();
+        toast.success('Kategori berhasil ditambahkan.');
       },
+      onError: () => toast.error('Kategori gagal ditambahkan.'),
     });
   };
 
@@ -40,13 +43,18 @@ export default function CategoryDashboard({ categories }) {
     patch(route('dashboard.category.update', willUpdate), {
       onSuccess: () => {
         setWillUpdate(null), setData('name', '');
+        toast.success('Kategori berhasil diupdate.');
       },
+      onError: () => toast.error('Kategori gagal diupdate.'),
     });
   };
 
   const handleDelete = (slug) => {
     confirm('Yakin ingin menghapus kategori ini?') &&
-      destroy(route('dashboard.category.destroy', slug));
+      destroy(route('dashboard.category.destroy', slug), {
+        onSuccess: () => toast.success('Kategori berhasil dihapus.'),
+        onError: () => toast.error('Kategori gagal dihapus.'),
+      });
   };
 
   const handleUpdateClick = (category) => {
@@ -62,7 +70,10 @@ export default function CategoryDashboard({ categories }) {
       <section className="mt-10 ">
         <div className="flex justify-between">
           <FilterDashboard />
-          <form onSubmit={handleSubmit} className="flex justify-end gap-5">
+          <form
+            onSubmit={handleSubmit}
+            className="flex items-start justify-end gap-5"
+          >
             <Input
               placeholder="Tambah Kategori"
               className="w-full"

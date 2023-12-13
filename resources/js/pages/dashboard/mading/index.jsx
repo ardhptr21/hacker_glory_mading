@@ -6,20 +6,26 @@ import Table from '@/components/ui/table/Table';
 import Td from '@/components/ui/table/Td';
 import Th from '@/components/ui/table/Th';
 import Tr from '@/components/ui/table/Tr';
-import { Link, useForm, usePage } from '@inertiajs/react';
+import { Link, useForm } from '@inertiajs/react';
 import { Check, Eye, Pencil, Plus, Trash, X } from '@phosphor-icons/react';
+import toast from 'react-hot-toast';
 
-export default function DashboardMagazine({ magazines }) {
-  const { user } = usePage().props;
+export default function DashboardMagazine({ magazines, user }) {
   const { delete: destroy, patch } = useForm({});
 
   const handleDelete = (slug) => {
     confirm('Apakah kamu yakin ingin menghapus mading ini?') &&
-      destroy(route('dashboard.mading.destroy', slug));
+      destroy(route('dashboard.mading.destroy', slug), {
+        onSuccess: () => toast.success('Mading berhasil dihapus.'),
+        onError: () => toast.error('Mading gagal dihapus.'),
+      });
   };
 
   const handleApprove = (slug) => {
-    patch(route('dashboard.mading.approve', slug));
+    patch(route('dashboard.mading.approve', slug), {
+      onSuccess: () => toast.success('Madin g berhasil diapprove.'),
+      onError: () => toast.error('Mading gagal diapprove.'),
+    });
   };
 
   return (

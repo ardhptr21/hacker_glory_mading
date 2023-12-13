@@ -3,6 +3,7 @@ import Button from '@/components/ui/Button';
 import Input from '@/components/ui/form/Input';
 import Select from '@/components/ui/form/Select';
 import { Link, useForm } from '@inertiajs/react';
+import toast from 'react-hot-toast';
 
 export default function CreateUserDashboard() {
   const { data, setData, errors, processing, post } = useForm({
@@ -17,7 +18,10 @@ export default function CreateUserDashboard() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    post(route('dashboard.user.store'));
+    post(route('dashboard.user.store'), {
+      onSuccess: toast.success('User berhasil dibuat.'),
+      onError: toast.error('User gagal dibuat.'),
+    });
   };
   return (
     <DashboardLayout>

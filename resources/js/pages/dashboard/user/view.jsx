@@ -3,6 +3,7 @@ import Button from '@/components/ui/Button';
 import Input from '@/components/ui/form/Input';
 import Select from '@/components/ui/form/Select';
 import { Link, useForm } from '@inertiajs/react';
+import toast from 'react-hot-toast';
 
 export default function ViewUserDashboard({ user }) {
   const { data, setData, errors, processing, put } = useForm({
@@ -17,7 +18,10 @@ export default function ViewUserDashboard({ user }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    put(route('dashboard.user.update', user.username));
+    put(route('dashboard.user.update', user.username), {
+      onSuccess: () => toast.success('User berhasil diupdate.'),
+      onError: () => toast.error('User gagal diupdate.'),
+    });
   };
 
   return (

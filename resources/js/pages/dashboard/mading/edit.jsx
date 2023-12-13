@@ -7,6 +7,7 @@ import Select from '@/components/ui/form/Select';
 import Textarea from '@/components/ui/form/Textarea';
 import { Link, useForm, usePage } from '@inertiajs/react';
 import { useState } from 'react';
+import toast from 'react-hot-toast';
 
 export default function CreateMagazine({ magazine, categories }) {
   const { user } = usePage().props;
@@ -24,7 +25,10 @@ export default function CreateMagazine({ magazine, categories }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.table(data);
-    post(route('dashboard.mading.update', magazine.slug));
+    post(route('dashboard.mading.update', magazine.slug), {
+      onSuccess: () => toast.success('Mading berhasil diupdate.'),
+      onError: () => toast.error('Mading gagal diupdate.'),
+    });
   };
 
   return (

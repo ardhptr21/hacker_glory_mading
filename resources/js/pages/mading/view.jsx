@@ -2,7 +2,7 @@ import GeneralLayout from '@/components/layouts/GeneralLayout';
 import Badge from '@/components/ui/Badge';
 import Button from '@/components/ui/Button';
 import { Link } from '@inertiajs/react';
-import { ArrowLeft } from '@phosphor-icons/react';
+import { ArrowLeft, Clock, UserCircle } from '@phosphor-icons/react';
 import 'react-quill/dist/quill.snow.css';
 
 export default function ViewMagazineArticle({ magazine }) {
@@ -18,7 +18,7 @@ export default function ViewMagazineArticle({ magazine }) {
         </div>
       </section>
       <section className="flex items-center justify-center gap-40 mt-20">
-        <h1 className="flex-1 font-extrabold uppercase text-8xl">
+        <h1 className="flex-1 font-extrabold uppercase text-7xl">
           {magazine.title}
         </h1>
         <p className="flex-1 text-lg font-semibold leading-relaxed">
@@ -28,11 +28,11 @@ export default function ViewMagazineArticle({ magazine }) {
       <section className="flex flex-col items-center justify-between gap-5 mt-28">
         <div className="flex items-center justify-between w-full">
           <div className="inline-flex items-center justify-center gap-10">
-            <p>
-              <span className="font-bold">Author</span> {magazine.author.name}
+            <p className="inline-flex items-center gap-2">
+              <UserCircle size={20} weight="bold" /> {magazine.author.name}
             </p>
-            <p>
-              <span className="font-bold">Publikasi</span>{' '}
+            <p className="inline-flex items-center gap-2">
+              <Clock size={20} weight="bold" />
               {magazine.published_at}
             </p>
           </div>

@@ -7,6 +7,7 @@ import Select from '@/components/ui/form/Select';
 import Textarea from '@/components/ui/form/Textarea';
 import { Link, useForm, usePage } from '@inertiajs/react';
 import { useState } from 'react';
+import toast from 'react-hot-toast';
 
 export default function CreateMagazine({ categories }) {
   const { user } = usePage().props;
@@ -27,7 +28,9 @@ export default function CreateMagazine({ categories }) {
       onSuccess: () => {
         reset();
         setSelectedCategory('');
+        toast.success('Mading berhasil dibuat.');
       },
+      onError: () => toast.error('Mading gagal dibuat.'),
     });
   };
 
