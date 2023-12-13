@@ -19,9 +19,10 @@ class DashboardMagazineController extends Controller
   {
     $q = $request->query('q');
     $sort = $request->query('sort') ?? 'desc';
-    $status = $request->query('status');
+    $published = $request->query('published');
+    $approved = $request->query('approved');
 
-    $magazines = $magazineRepository->getAll(20, $q, $status, $sort);
+    $magazines = $magazineRepository->getAll(20, $q, $published, $approved, $sort);
     return inertia('dashboard/mading/index', compact('magazines'));
   }
 
@@ -80,5 +81,18 @@ class DashboardMagazineController extends Controller
     $this->delete($magazine->thumbnail);
 
     return to_route('dashboard.mading.index')->with('success', 'Berhasil menghapus mading.');
+  }
+
+  public function approve(Magazine $magazine)
+  {
+    $approved = $magazine->update([
+      'approved' => !$magazine->approved
+    ]);
+
+    if (!$approved) {
+      return back()->with('error', 'Gagal mengubah status mading, coba lagi.');
+    }
+
+    return back()->with('success', 'Berhasil mengubah status mading.');
   }
 }

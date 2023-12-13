@@ -22,6 +22,7 @@ class Magazine extends Model
     'category_id',
     'author_id',
     'published_at',
+    'approved'
   ];
 
   protected $appends = ['is_published'];
@@ -58,12 +59,17 @@ class Magazine extends Model
     $query->where('published_at', '<=', now());
   }
 
+  public function scopeApproved(Builder $query)
+  {
+    $query->where('approved', true);
+  }
+
   public function scopeUnpublished(Builder $query)
   {
     $query->where('published_at', '>', now());
   }
 
-  public function scopeFilter(Builder $query, ?string $q, ?string $status, ?string $sort = 'desc')
+  public function scopeFilter(Builder $query, ?string $q, ?string $published, ?string $approved, ?string $sort = 'desc')
   {
     $query
       ->when($q, function ($query, $q) {
@@ -71,11 +77,18 @@ class Magazine extends Model
           ->where('title', 'like', '%' . $q . '%')
           ->orWhere('description', 'like', '%' . $q . '%');
       })
-      ->when($status, function ($query, $status) {
-        if ($status === 'published') {
+      ->when($published, function ($query, $published) {
+        if ($published === 'yes') {
           $query->published();
-        } else if ($status === 'unpublished') {
+        } else if ($published === 'no') {
           $query->unpublished();
+        }
+      })
+      ->when($approved, function ($query, $approved) {
+        if ($approved === 'yes') {
+          $query->approved();
+        } else if ($approved === 'no') {
+          $query->where('approved', false);
         }
       })
       ->orderBy('published_at', $sort)
