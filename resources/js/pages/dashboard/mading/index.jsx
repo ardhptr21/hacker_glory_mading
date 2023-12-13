@@ -1,4 +1,5 @@
 import DashboardLayout from '@/components/layouts/DashboardLayout';
+import PaginationTable from '@/components/partials/PaginationTable';
 import Button from '@/components/ui/Button';
 import Table from '@/components/ui/table/Table';
 import Td from '@/components/ui/table/Td';
@@ -6,8 +7,10 @@ import Th from '@/components/ui/table/Th';
 import Tr from '@/components/ui/table/Tr';
 import { Link, useForm } from '@inertiajs/react';
 import { Eye, Pencil, Plus, Trash } from '@phosphor-icons/react';
+import FilterDashboard from '../../../components/partials/FilterDashboard';
 
 export default function DashboardMagazine({ magazines }) {
+  console.log(magazines);
   const { delete: destroy } = useForm({});
 
   const handleDelete = (slug) => {
@@ -25,6 +28,18 @@ export default function DashboardMagazine({ magazines }) {
         </Button>
       </section>
       <section>
+        <FilterDashboard
+          filters={[
+            {
+              key: 'status',
+              label: 'Status',
+              options: [
+                { label: 'Published', value: 'published' },
+                { label: 'Unpublished', value: 'unpublished' },
+              ],
+            },
+          ]}
+        />
         <div className="block py-8 pt-6 mt-5 bg-white shadow-sm rounded-xl px-9">
           <div className="overflow-x-auto">
             <Table>
@@ -32,16 +47,20 @@ export default function DashboardMagazine({ magazines }) {
                 <tr className="font-bold">
                   <Th className="min-w-[50px]">#</Th>
                   <Th className="min-w-[120px]">Judul</Th>
+                  <Th className="min-w-[120px]">Status</Th>
                   <Th className="min-w-[120px]">Author</Th>
                   <Th className="min-w-[120px]">Category</Th>
                   <Th></Th>
                 </tr>
               </thead>
               <tbody>
-                {magazines?.map((magazine, index) => (
+                {magazines?.data?.map((magazine, index) => (
                   <Tr key={magazine.slug}>
                     <Td>{index + 1}</Td>
                     <Td>{magazine.title}</Td>
+                    <Td>
+                      {magazine.is_published ? 'Published' : 'Unpublished'}
+                    </Td>
                     <Td>{magazine.author.username}</Td>
                     <Td>{magazine.category.name}</Td>
                     <Td>
@@ -76,6 +95,16 @@ export default function DashboardMagazine({ magazines }) {
                 ))}
               </tbody>
             </Table>
+            <PaginationTable
+              className="mt-5"
+              total={magazines.total}
+              from={magazines.from}
+              to={magazines.to}
+              prevPageUrl={magazines.prev_page_url}
+              nextPageUrl={magazines.next_page_url}
+              links={magazines.links}
+              currentPage={magazines.current_page}
+            />
           </div>
         </div>
       </section>

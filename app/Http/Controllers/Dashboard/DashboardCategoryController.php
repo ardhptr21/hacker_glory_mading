@@ -6,12 +6,17 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Category\StoreCategoryRequest;
 use App\Http\Requests\Category\UpdateCategoryRequest;
 use App\Models\Category;
+use App\Repositories\CategoryRepository;
+use Illuminate\Http\Request;
 
 class DashboardCategoryController extends Controller
 {
-  public function index()
+  public function index(Request $request, CategoryRepository $categoryRepository)
   {
-    $categories = Category::all();
+    $q = $request->query('q');
+    $sort = $request->query('sort') ?? 'desc';
+
+    $categories = $categoryRepository->getAll(20, $q, $sort);
     return inertia('dashboard/category/index', compact('categories'));
   }
 

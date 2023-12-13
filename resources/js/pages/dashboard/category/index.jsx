@@ -1,4 +1,5 @@
 import DashboardLayout from '@/components/layouts/DashboardLayout';
+import PaginationTable from '@/components/partials/PaginationTable';
 import Button from '@/components/ui/Button';
 import Input from '@/components/ui/form/Input';
 import Table from '@/components/ui/table/Table';
@@ -8,6 +9,7 @@ import Tr from '@/components/ui/table/Tr';
 import { useForm } from '@inertiajs/react';
 import { Check, Pencil, Plus, Trash, X } from '@phosphor-icons/react';
 import { useState } from 'react';
+import FilterDashboard from '../../../components/partials/FilterDashboard';
 
 export default function CategoryDashboard({ categories }) {
   const {
@@ -58,21 +60,24 @@ export default function CategoryDashboard({ categories }) {
         <h1 className="text-xl font-bold">Kategori Dashboard</h1>
       </section>
       <section className="mt-10 ">
-        <form onSubmit={handleSubmit} className="flex justify-end gap-5">
-          <Input
-            placeholder="Tambah Kategori"
-            className="w-full"
-            value={willUpdate ? '' : data.name}
-            onChange={(e) => setData('name', e.target.value)}
-            error={errors.name}
-            isError={!!errors.name && !willUpdate}
-            disabled={processing || willUpdate}
-          />
-          <Button type="submit" disabled={processing || willUpdate}>
-            <Plus />
-            Tambah
-          </Button>
-        </form>
+        <div className="flex justify-between">
+          <FilterDashboard />
+          <form onSubmit={handleSubmit} className="flex justify-end gap-5">
+            <Input
+              placeholder="Tambah Kategori"
+              className="w-full"
+              value={willUpdate ? '' : data.name}
+              onChange={(e) => setData('name', e.target.value)}
+              error={errors.name}
+              isError={!!errors.name && !willUpdate}
+              disabled={processing || willUpdate}
+            />
+            <Button type="submit" disabled={processing || willUpdate}>
+              <Plus />
+              Tambah
+            </Button>
+          </form>
+        </div>
         <div className="block py-8 pt-6 mt-5 bg-white shadow-sm rounded-xl px-9">
           <div className="overflow-x-auto">
             <Table>
@@ -84,9 +89,9 @@ export default function CategoryDashboard({ categories }) {
                 </tr>
               </thead>
               <tbody>
-                {categories.map((category) => (
+                {categories.data.map((category, index) => (
                   <Tr key={category.slug}>
-                    <Td>{category.id}</Td>
+                    <Td>{index + categories.from}</Td>
                     <Td>
                       {willUpdate === category.slug ? (
                         <div className="flex items-start w-full gap-2">
@@ -144,6 +149,16 @@ export default function CategoryDashboard({ categories }) {
                 ))}
               </tbody>
             </Table>
+            <PaginationTable
+              className="mt-5"
+              total={categories.total}
+              from={categories.from}
+              to={categories.to}
+              prevPageUrl={categories.prev_page_url}
+              nextPageUrl={categories.next_page_url}
+              links={categories.links}
+              currentPage={categories.current_page}
+            />
           </div>
         </div>
       </section>

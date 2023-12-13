@@ -7,15 +7,21 @@ use App\Http\Requests\Magazine\StoreMagazineRequest;
 use App\Http\Requests\Magazine\UpdateMagazineRequest;
 use App\Models\Category;
 use App\Models\Magazine;
+use App\Repositories\MagazineRepository;
 use App\Traits\UploadFile;
+use Illuminate\Http\Request;
 
 class DashboardMagazineController extends Controller
 {
   use UploadFile;
 
-  public function index()
+  public function index(Request $request, MagazineRepository $magazineRepository)
   {
-    $magazines = Magazine::with(['category:id,name', 'author:id,username'])->latest()->get();
+    $q = $request->query('q');
+    $sort = $request->query('sort') ?? 'desc';
+    $status = $request->query('status');
+
+    $magazines = $magazineRepository->getAll(20, $q, $status, $sort);
     return inertia('dashboard/mading/index', compact('magazines'));
   }
 

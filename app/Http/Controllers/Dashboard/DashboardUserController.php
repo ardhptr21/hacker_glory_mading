@@ -11,9 +11,13 @@ use Illuminate\Http\Request;
 
 class DashboardUserController extends Controller
 {
-  public function index(UserRepository $userRepository)
+  public function index(Request $request, UserRepository $userRepository)
   {
-    $users = $userRepository->getAll();
+    $q = $request->query('q');
+    $role = $request->query('role');
+    $sort = $request->query('sort') ?? 'desc';
+
+    $users = $userRepository->getAll(20, $q, $role, $sort);
 
     return inertia('dashboard/user/index', compact('users'));
   }

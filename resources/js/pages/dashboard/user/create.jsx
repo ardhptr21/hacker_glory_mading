@@ -24,7 +24,7 @@ export default function CreateUserDashboard() {
       <section>
         <h1 className="text-xl font-bold">Buat User</h1>
       </section>
-      <section className="mt-10 max-w-xl">
+      <section className="max-w-xl mx-auto mt-10">
         <form onSubmit={handleSubmit} className="flex-1 space-y-3">
           <Select
             label="Role"

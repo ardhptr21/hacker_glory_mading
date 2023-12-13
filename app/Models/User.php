@@ -3,6 +3,8 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -51,5 +53,20 @@ class User extends Authenticatable
     return $roles
       ? in_array($this->role, $roles)
       : false;
+  }
+
+  public function scopeFilter(Builder $query, ?string $q, ?string $role, ?string $sort = 'desc')
+  {
+    $query
+      ->when($q, function ($query, $q) {
+        $query
+          ->where('name', 'like', '%' . $q . '%')
+          ->orWhere('username', 'like', '%' . $q . '%')
+          ->orWhere('email', 'like', '%' . $q . '%');
+      })
+      ->when($role, function ($query, $role) {
+        $query->where('role', $role);
+      })
+      ->orderBy('created_at', $sort);
   }
 }

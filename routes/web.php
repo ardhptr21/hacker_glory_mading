@@ -17,10 +17,10 @@ Route::controller(PageController::class)->name('page.')->group(function () {
 
 // === Auth Routes ===
 Route::controller(AuthController::class)->prefix('auth')->name('auth.')->middleware('guest')->group(function () {
-  Route::inertia('login', 'auth/login')->name('login');
-  Route::inertia('register', 'auth/register')->name('register');
-  Route::post('login', 'login');
-  Route::post('register', 'register');
+  Route::inertia('/login', 'auth/login')->name('login');
+  Route::inertia('/register', 'auth/register')->name('register');
+  Route::post('/login', 'login');
+  Route::post('/register', 'register');
 });
 
 // === Category Routes ===
@@ -39,30 +39,30 @@ Route::prefix('dashboard')->name('dashboard.')->middleware('auth')->group(functi
 
   // === User Routes ===
   Route::controller(DashboardUserController::class)->middleware('role:admin')->prefix('users')->name('user.')->group(function () {
-    Route::get('/', 'index')->name('index');
+    Route::get('/create', 'create')->name('create');
     Route::get('/{user:username}', 'view')->name('view');
     Route::put('/{user:username}', 'update')->name('update');
-    Route::get('/create', 'create')->name('create');
-    Route::post('/', 'store')->name('store');
     Route::delete('/{user:username}', 'destroy')->name('destroy');
+    Route::get('/', 'index')->name('index');
+    Route::post('/', 'store')->name('store');
   });
 
   // === Mading/Magazine Dashboard Routes ===
   Route::controller(DashboardMagazineController::class)->middleware('role:admin,guru,pengurus')->prefix('mading')->name('mading.')->group(function () {
-    Route::get('/', 'index')->name('index');
-    Route::post('/', 'store')->name('store');
+    Route::get('/{magazine:slug}/edit', 'edit')->name('edit');
     Route::get('/create', 'create')->name('create');
     Route::put('/{magazine:slug}', 'update')->name('update');
-    Route::get('/{magazine:slug}/edit', 'edit')->name('edit');
     Route::delete('/{magazine:slug}', 'destroy')->name('destroy');
+    Route::get('/', 'index')->name('index');
+    Route::post('/', 'store')->name('store');
   });
 
   // === Dashboard Category Routes ===
   Route::controller(DashboardCategoryController::class)->middleware('role:admin,guru,pengurus')->prefix('categories')->name('category.')->group(function () {
-    Route::get('/', 'index')->name('index');
-    Route::post('/', 'store')->name('store');
     Route::patch('/{category:slug}', 'update')->name('update');
     Route::delete('/{category:slug}', 'destroy')->name('destroy');
+    Route::get('/', 'index')->name('index');
+    Route::post('/', 'store')->name('store');
   });
 });
 
