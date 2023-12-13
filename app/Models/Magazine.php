@@ -69,7 +69,7 @@ class Magazine extends Model
     $query->where('published_at', '>', now());
   }
 
-  public function scopeFilter(Builder $query, ?string $q, ?string $published, ?string $approved, ?string $sort = 'desc')
+  public function scopeFilter(Builder $query, ?string $q = null, ?string $published = null, ?string $approved = null, ?string $sort = 'desc')
   {
     $query
       ->when($q, function ($query, $q) {

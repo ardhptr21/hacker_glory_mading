@@ -6,7 +6,7 @@ use App\Models\Magazine;
 
 class MagazineRepository
 {
-  public function getAll(int $paginate, ?string $q, ?string $published, ?string $approved, ?string $sort = 'desc')
+  public function getAll(int $paginate, ?string $q = null, ?string $published = null, ?string $approved = null, ?string $sort = 'desc')
   {
     return Magazine::with(['category:id,name,slug', 'author:id,username'])
       ->filter($q, $published, $approved, $sort)

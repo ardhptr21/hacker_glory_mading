@@ -55,7 +55,7 @@ class User extends Authenticatable
       : false;
   }
 
-  public function scopeFilter(Builder $query, ?string $q, ?string $role, ?string $sort = 'desc')
+  public function scopeFilter(Builder $query, ?string $q = null, ?string $role = null, ?string $sort = 'desc')
   {
     $query
       ->when($q, function ($query, $q) {

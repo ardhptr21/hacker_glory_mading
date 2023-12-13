@@ -31,7 +31,7 @@ class Category extends Model
     return $this->hasMany(Magazine::class);
   }
 
-  public function scopeFilter(Builder $query, ?string $q, ?string $sort = 'desc')
+  public function scopeFilter(Builder $query, ?string $q = null, ?string $sort = 'desc')
   {
     $query
       ->when($q, function ($query, $q) {
