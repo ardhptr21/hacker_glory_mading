@@ -61,6 +61,8 @@ Route::prefix('dashboard')->name('dashboard.')->middleware('auth')->group(functi
   Route::controller(DashboardCategoryController::class)->middleware('role:admin,guru,pengurus')->prefix('categories')->name('category.')->group(function () {
     Route::get('/', 'index')->name('index');
     Route::post('/', 'store')->name('store');
+    Route::patch('/{category:slug}', 'update')->name('update');
+    Route::delete('/{category:slug}', 'destroy')->name('destroy');
   });
 });
 

@@ -6,12 +6,24 @@ import Td from '@/components/ui/table/Td';
 import Th from '@/components/ui/table/Th';
 import Tr from '@/components/ui/table/Tr';
 import { useForm } from '@inertiajs/react';
-import { Pencil, Plus, Trash } from '@phosphor-icons/react';
+import { Check, Pencil, Plus, Trash, X } from '@phosphor-icons/react';
+import { useState } from 'react';
 
 export default function CategoryDashboard({ categories }) {
-  const { data, setData, errors, processing, post, reset } = useForm({
+  const {
+    data,
+    setData,
+    errors,
+    processing,
+    clearErrors,
+    post,
+    patch,
+    delete: destroy,
+    reset,
+  } = useForm({
     name: '',
   });
+  const [willUpdate, setWillUpdate] = useState(null);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -22,24 +34,41 @@ export default function CategoryDashboard({ categories }) {
     });
   };
 
+  const handleUpdate = () => {
+    patch(route('dashboard.category.update', willUpdate), {
+      onSuccess: () => {
+        setWillUpdate(null), setData('name', '');
+      },
+    });
+  };
+
+  const handleDelete = (slug) => {
+    confirm('Yakin ingin menghapus kategori ini?') &&
+      destroy(route('dashboard.category.destroy', slug));
+  };
+
+  const handleUpdateClick = (category) => {
+    setWillUpdate(category.slug);
+    setData('name', category.name);
+  };
+
   return (
     <DashboardLayout>
       <section>
         <h1 className="text-xl font-bold">Kategori Dashboard</h1>
       </section>
-
       <section className="mt-10 ">
         <form onSubmit={handleSubmit} className="flex justify-end gap-5">
           <Input
             placeholder="Tambah Kategori"
-            className="w-96"
-            value={data.name}
+            className="w-full"
+            value={willUpdate ? '' : data.name}
             onChange={(e) => setData('name', e.target.value)}
             error={errors.name}
-            isError={!!errors.name}
-            disabled={processing}
+            isError={!!errors.name && !willUpdate}
+            disabled={processing || willUpdate}
           />
-          <Button type="submit" disabled={processing}>
+          <Button type="submit" disabled={processing || willUpdate}>
             <Plus />
             Tambah
           </Button>
@@ -58,10 +87,43 @@ export default function CategoryDashboard({ categories }) {
                 {categories.map((category) => (
                   <Tr key={category.slug}>
                     <Td>{category.id}</Td>
-                    <Td>{category.name}</Td>
+                    <Td>
+                      {willUpdate === category.slug ? (
+                        <div className="flex items-start w-full gap-2">
+                          <Input
+                            value={data.name}
+                            onChange={(e) => setData('name', e.target.value)}
+                            error={errors.name}
+                            isError={!!errors.name}
+                            disabled={processing}
+                          />
+                          <Button
+                            size="box"
+                            onClick={() => {
+                              setWillUpdate(null),
+                                setData('name', ''),
+                                clearErrors();
+                            }}
+                            disabled={processing}
+                          >
+                            <X />
+                          </Button>
+                          <Button
+                            size="box"
+                            disabled={processing}
+                            onClick={handleUpdate}
+                          >
+                            <Check />
+                          </Button>
+                        </div>
+                      ) : (
+                        category.name
+                      )}
+                    </Td>
                     <Td>
                       <div className="flex gap-5">
                         <Button
+                          onClick={() => handleDelete(category.slug)}
                           size="box"
                           className="text-red-500 border-red-500 hover:bg-red-500"
                           variant="outline"
@@ -69,6 +131,7 @@ export default function CategoryDashboard({ categories }) {
                           <Trash />
                         </Button>
                         <Button
+                          onClick={() => handleUpdateClick(category)}
                           size="box"
                           className="text-yellow-500 border-yellow-500 hover:bg-yellow-500"
                           variant="outline"

@@ -4,7 +4,7 @@ namespace App\Http\Requests\Category;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreCategoryRequest extends FormRequest
+class UpdateCategoryRequest extends FormRequest
 {
   /**
    * Determine if the user is authorized to make this request.
@@ -22,7 +22,7 @@ class StoreCategoryRequest extends FormRequest
   public function rules(): array
   {
     return [
-      'name' => 'required|string|max:30|unique:categories',
+      'name' => 'required|string|max:30|unique:categories,name,' . $this->category->id
     ];
   }
 }
