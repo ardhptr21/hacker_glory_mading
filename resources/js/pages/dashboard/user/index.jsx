@@ -4,10 +4,10 @@ import Table from '@/components/ui/table/Table';
 import Td from '@/components/ui/table/Td';
 import Th from '@/components/ui/table/Th';
 import Tr from '@/components/ui/table/Tr';
-import { useForm } from '@inertiajs/react';
+import { Link, useForm } from '@inertiajs/react';
 import { Eye, Pencil, Trash } from '@phosphor-icons/react';
 
-export default function index({ users }) {
+export default function UserDashboard({ users }) {
   const { delete: destroy } = useForm();
 
   const handleDelete = (username) => {
@@ -53,13 +53,8 @@ export default function index({ users }) {
                           <Trash />
                         </Button>
                         <Button
-                          size="box"
-                          className="text-yellow-500 border-yellow-500 hover:bg-yellow-500"
-                          variant="outline"
-                        >
-                          <Pencil />
-                        </Button>
-                        <Button
+                          as={Link}
+                          href={route('dashboard.user.view', user.username)}
                           size="box"
                           className="text-blue-500 border-blue-500 hover:bg-blue-500"
                           variant="outline"

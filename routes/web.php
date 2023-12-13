@@ -40,6 +40,8 @@ Route::prefix('dashboard')->name('dashboard.')->middleware('auth')->group(functi
   // === User Routes ===
   Route::controller(DashboardUserController::class)->middleware('role:admin')->prefix('users')->name('user.')->group(function () {
     Route::get('/', 'index')->name('index');
+    Route::get('/{user:username}', 'view')->name('view');
+    Route::put('/{user:username}', 'update')->name('update');
     Route::get('/create', 'create')->name('create');
     Route::post('/', 'store')->name('store');
     Route::delete('/{user:username}', 'destroy')->name('destroy');
