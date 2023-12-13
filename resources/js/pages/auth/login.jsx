@@ -27,7 +27,7 @@ export default function Login() {
         <form onSubmit={handleSubmit}>
           <div className="space-y-5">
             <Input
-              placeholder="Masukkan email/username/nis/nip"
+              placeholder="Masukkan email/username/nis"
               value={data.login}
               onChange={(e) => setData('login', e.target.value)}
               isError={!!errors.login}

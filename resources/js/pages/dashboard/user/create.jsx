@@ -11,7 +11,6 @@ export default function CreateUserDashboard() {
     email: '',
     username: '',
     nis: '',
-    nip: '',
     password: '',
     role: '',
   });
@@ -41,8 +40,7 @@ export default function CreateUserDashboard() {
             required
           >
             <option value="admin">Admin</option>
-            <option value="guru">Guru</option>
-            <option value="pengurus">Pengurus</option>
+            <option value="penulis">Penulis</option>
             <option value="siswa">Siswa</option>
           </Select>
           <Input
@@ -76,7 +74,7 @@ export default function CreateUserDashboard() {
             disabled={processing}
             required
           />
-          {(data.role === 'siswa' || data.role === 'pengurus') && (
+          {data.role === 'siswa' && (
             <Input
               label="NIS"
               placeholder="Masukkan nis user"
@@ -90,20 +88,7 @@ export default function CreateUserDashboard() {
               required
             />
           )}
-          {data.role === 'guru' && (
-            <Input
-              label="NIP"
-              placeholder="Masukkan nip user"
-              value={data.nip}
-              onChange={(e) => setData('nip', e.target.value)}
-              error={errors.nip}
-              isError={!!errors.nip}
-              disabled={processing}
-              maxLength={18}
-              pattern="[0-9]{18}"
-              required
-            />
-          )}
+
           <Input
             type="password"
             label="Password"
@@ -124,7 +109,9 @@ export default function CreateUserDashboard() {
             >
               Batal
             </Button>
-            <Button type="submit">Buat</Button>
+            <Button type="submit" disabled={processing}>
+              Buat
+            </Button>
           </div>
         </form>
       </section>

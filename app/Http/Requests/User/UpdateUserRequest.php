@@ -26,9 +26,8 @@ class UpdateUserRequest extends FormRequest
       'email' => 'required|email|max:255|unique:users,email,' . $this->user->id,
       'username' => 'required|string|max:255|regex:/^[a-zA-Z0-9]+$/|unique:users,username,' . $this->user->id,
       'password' => 'string|min:8|nullable',
-      'role' => 'required|in:admin,siswa,guru,pengurus',
-      'nis' => 'required_if:role,siswa,pengurus|string|digits:10|nullable|unique:users,nis,' . $this->user->id,
-      'nip' => 'required_if:role,guru|string|digits:18|unique:users|nullable',
+      'role' => 'required|in:admin,penulis,siswa',
+      'nis' => 'required_if:role,siswa|string|digits:10|nullable|unique:users,nis,' . $this->user->id,
     ];
   }
 }

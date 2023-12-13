@@ -22,7 +22,7 @@ class LoginRequest extends FormRequest
   public function messages(): array
   {
     return [
-      'login.required' => 'Email/Username/NIP/NIS tidak boleh kosong.',
+      'login.required' => 'Email/Username/NIS tidak boleh kosong.',
       'password.required' => 'Password tidak boleh kosong.',
     ];
   }

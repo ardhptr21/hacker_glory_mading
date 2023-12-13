@@ -15,7 +15,6 @@ class AuthController extends Controller
 
     $user = User::where('email', $credentials['login'])
       ->orWhere('username', $credentials['login'])
-      ->orWhere('nip', $credentials['login'])
       ->orWhere('nis', $credentials['login'])
       ->first();
 

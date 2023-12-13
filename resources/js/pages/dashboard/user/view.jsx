@@ -11,7 +11,6 @@ export default function ViewUserDashboard({ user }) {
     email: user.email,
     username: user.username,
     nis: user.nis || '',
-    nip: user.nip || '',
     password: user.password,
     role: user.role,
   });
@@ -39,7 +38,7 @@ export default function ViewUserDashboard({ user }) {
           </div>
           <div className="text-center">
             <p>{user.email}</p>
-            {user.role !== 'admin' && <p>{user.nis || user.nip}</p>}
+            {user.role === 'siswa' && <p>{user.nis}</p>}
           </div>
         </div>
         <div className="w-full">
@@ -55,8 +54,7 @@ export default function ViewUserDashboard({ user }) {
               required
             >
               <option value="admin">Admin</option>
-              <option value="guru">Guru</option>
-              <option value="pengurus">Pengurus</option>
+              <option value="penulis">Penulis</option>
               <option value="siswa">Siswa</option>
             </Select>
             <Input
@@ -90,7 +88,7 @@ export default function ViewUserDashboard({ user }) {
               disabled={processing}
               required
             />
-            {(data.role === 'siswa' || data.role === 'pengurus') && (
+            {data.role === 'siswa' && (
               <Input
                 label="NIS"
                 placeholder="Masukkan nis user"
@@ -104,20 +102,7 @@ export default function ViewUserDashboard({ user }) {
                 required
               />
             )}
-            {data.role === 'guru' && (
-              <Input
-                label="NIP"
-                placeholder="Masukkan nip user"
-                value={data.nip}
-                onChange={(e) => setData('nip', e.target.value)}
-                error={errors.nip}
-                isError={!!errors.nip}
-                disabled={processing}
-                maxLength={18}
-                pattern="[0-9]{18}"
-                required
-              />
-            )}
+
             <Input
               type="password"
               label="Password"

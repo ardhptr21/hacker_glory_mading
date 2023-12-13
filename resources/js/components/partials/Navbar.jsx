@@ -17,7 +17,7 @@ export default function Navbar() {
       icon: Gauge,
       route: route('dashboard.index'),
       active: route().current('dashboard.index'),
-      show: user?.role !== 'siswa',
+      show: !!user,
     },
     {
       label: 'Daftar',

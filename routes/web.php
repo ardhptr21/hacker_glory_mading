@@ -48,7 +48,7 @@ Route::prefix('dashboard')->name('dashboard.')->middleware('auth')->group(functi
   });
 
   // === Mading/Magazine Dashboard Routes ===
-  Route::controller(DashboardMagazineController::class)->middleware('role:admin,guru,pengurus')->prefix('mading')->name('mading.')->group(function () {
+  Route::controller(DashboardMagazineController::class)->middleware('role:admin,penulis')->prefix('mading')->name('mading.')->group(function () {
     Route::get('/{magazine:slug}/edit', 'edit')->name('edit');
     Route::patch('/{magazine:slug}/approve', 'approve')->name('approve')->middleware('role:admin');
     Route::get('/create', 'create')->name('create');
@@ -59,7 +59,7 @@ Route::prefix('dashboard')->name('dashboard.')->middleware('auth')->group(functi
   });
 
   // === Dashboard Category Routes ===
-  Route::controller(DashboardCategoryController::class)->middleware('role:admin,guru,pengurus')->prefix('categories')->name('category.')->group(function () {
+  Route::controller(DashboardCategoryController::class)->middleware('role:admin,penulis')->prefix('categories')->name('category.')->group(function () {
     Route::patch('/{category:slug}', 'update')->name('update');
     Route::delete('/{category:slug}', 'destroy')->name('destroy');
     Route::get('/', 'index')->name('index');

@@ -26,9 +26,8 @@ class StoreUserRequest extends FormRequest
       'email' => 'required|email|max:255|unique:users',
       'username' => 'required|string|max:255|unique:users|regex:/^[a-zA-Z0-9]+$/',
       'password' => 'required|string|min:8',
-      'role' => 'required|in:admin,siswa,guru,pengurus',
-      'nis' => 'required_if:role,siswa,pengurus|string|digits:10|unique:users|nullable',
-      'nip' => 'required_if:role,guru|string|digits:18|unique:users|nullable',
+      'role' => 'required|in:admin,penulis,siswa',
+      'nis' => 'required_if:role,siswa|string|digits:10|unique:users|nullable',
     ];
   }
 }

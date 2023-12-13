@@ -21,6 +21,7 @@ return new class extends Migration
       $table->string('thumbnail');
       $table->text('article')->nullable();
       $table->boolean('approved')->default(false);
+      $table->boolean('important')->default(false);
       $table->timestamp('published_at');
       $table->timestamps();
     });

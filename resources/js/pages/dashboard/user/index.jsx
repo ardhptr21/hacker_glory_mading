@@ -39,8 +39,7 @@ export default function UserDashboard({ users, user: auth }) {
               label: 'Pilih Role',
               options: [
                 { value: 'admin', label: 'Admin' },
-                { value: 'guru', label: 'Guru' },
-                { value: 'pengurus', label: 'Pengurus' },
+                { value: 'penulis', label: 'Penulis' },
                 { value: 'siswa', label: 'Siswa' },
               ],
             },
