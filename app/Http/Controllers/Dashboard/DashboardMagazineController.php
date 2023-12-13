@@ -67,6 +67,7 @@ class DashboardMagazineController extends Controller
     }
 
     $categories = Category::all();
+    $magazine->load('category:id,name,slug');
     return inertia('dashboard/mading/edit', compact('magazine', 'categories'));
   }
 

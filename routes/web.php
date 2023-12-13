@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\BookmarkController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\Dashboard\DashboardCategoryController;
 use App\Http\Controllers\Dashboard\DashboardMagazineController;
@@ -31,6 +32,13 @@ Route::controller(CategoryController::class)->prefix('categories')->name('catego
 // === Magazine/Mading Routes ====
 Route::controller(MagazineController::class)->prefix('mading')->name('mading.')->group(function () {
   Route::get('/{magazine:slug}', 'view')->name('view');
+});
+
+// === Bookmark Routes ===
+Route::controller(BookmarkController::class)->middleware(['auth', 'role:siswa'])->prefix('bookmarks')->name('bookmark.')->group(function () {
+  Route::get('/', 'index')->name('index');
+  Route::post('/', 'store')->name('store');
+  Route::delete('/{bookmark}', 'destroy')->name('destroy');
 });
 
 // === Dashboard Routes ===

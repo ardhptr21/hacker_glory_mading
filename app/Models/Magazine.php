@@ -48,6 +48,11 @@ class Magazine extends Model
     return $this->belongsTo(User::class, 'author_id');
   }
 
+  public function bookmarks()
+  {
+    return $this->hasMany(Bookmark::class);
+  }
+
   public function publishedAt(): Attribute
   {
     return Attribute::make(
@@ -61,6 +66,7 @@ class Magazine extends Model
       get: fn ($value) => $value <= now(),
     );
   }
+
 
   public function scopePublished(Builder $query)
   {

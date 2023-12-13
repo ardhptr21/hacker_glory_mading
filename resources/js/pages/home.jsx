@@ -30,14 +30,10 @@ export default function Home({ magazines }) {
           <MagazineCard
             className="mb-5 break-inside-avoid"
             key={magazine.slug}
-            title={magazine.title}
-            excerpt={magazine.description}
-            image={`/storage/${magazine.thumbnail}`}
-            category={magazine.category.name}
-            author={magazine.author.username}
-            published_at={magazine.published_at}
-            category_slug={magazine.category.slug}
-            slug={magazine.slug}
+            magazine={{
+              ...magazine,
+              thumbnail: `/storage/${magazine.thumbnail}`,
+            }}
           />
         ))}
       </section>

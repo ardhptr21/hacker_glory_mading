@@ -20,7 +20,10 @@ export default function EditMagazine({ magazine, categories }) {
     category_id: magazine.category_id,
     article: magazine.article,
   });
-  const [selectedCategory, setSelectedCategory] = useState('');
+
+  const [selectedCategory, setSelectedCategory] = useState(
+    magazine.category.name
+  );
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -110,17 +113,18 @@ export default function EditMagazine({ magazine, categories }) {
           <div className="flex-1 max-w-xl pl-10">
             <h3 className="text-lg font-semibold">Preview Card</h3>
             <MagazineCard
+              isPreview={true}
               className="mt-5"
-              title={data.title}
-              excerpt={data.description}
-              image={
-                typeof data.thumbnail === 'object'
-                  ? URL.createObjectURL(data.thumbnail)
-                  : `/storage/${magazine.thumbnail}`
-              }
-              category={selectedCategory}
-              author={user?.name}
-              published_at={magazine.published_at}
+              magazine={{
+                ...data,
+                published_at: magazine.published_at,
+                thumbnail:
+                  typeof data.thumbnail === 'object'
+                    ? URL.createObjectURL(data.thumbnail)
+                    : `/storage/${magazine.thumbnail}`,
+                category: { name: selectedCategory },
+                author: { username: user?.username },
+              }}
             />
           </div>
         </div>

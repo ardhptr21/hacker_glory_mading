@@ -123,13 +123,16 @@ export default function CreateMagazine({ categories }) {
           <div className="flex-1 max-w-xl pl-10">
             <h3 className="text-lg font-semibold">Preview Card</h3>
             <MagazineCard
+              isPreview={true}
               className="mt-5"
-              title={data.title}
-              excerpt={data.description}
-              image={data.thumbnail ? URL.createObjectURL(data.thumbnail) : ''}
-              category={selectedCategory}
-              author={user?.name}
-              published_at={data.published_at}
+              magazine={{
+                ...data,
+                thumbnail: data.thumbnail
+                  ? URL.createObjectURL(data.thumbnail)
+                  : '',
+                category: { name: selectedCategory },
+                author: { username: user?.username },
+              }}
             />
           </div>
         </div>

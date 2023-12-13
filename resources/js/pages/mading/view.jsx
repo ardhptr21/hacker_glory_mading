@@ -46,8 +46,8 @@ export default function ViewMagazineArticle({ magazine }) {
           />
         </div>
         {magazine.article && (
-          <div className="flex items-start justify-between w-5/6 gap-20 mx-auto mt-16 space-y-5">
-            <div className="sticky w-full top-10">
+          <div className="flex items-start justify-between w-5/6 min-h-screen gap-20 mx-auto mt-16 space-y-5">
+            <div className="sticky w-[720px] top-28">
               <div className="inline-flex items-center gap-5">
                 <div className="w-20 h-20 overflow-hidden bg-gray-500 rounded-full">
                   <img
@@ -73,7 +73,7 @@ export default function ViewMagazineArticle({ magazine }) {
                 </div>
               </div>
             </div>
-            <div className="w-full max-w-2xl">
+            <div className="w-full">
               <div
                 className="prose prose-lg max-w-none prose-ol:ml-5 prose-ul:ml-5"
                 dangerouslySetInnerHTML={{ __html: magazine.article }}

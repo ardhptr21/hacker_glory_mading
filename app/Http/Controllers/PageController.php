@@ -11,6 +11,7 @@ class PageController extends Controller
   {
     $q = $request->query('q');
     $sort = $request->query('sort', 'desc');
+
     $magazines = $magazineRepository->getAllPublishedAndApproved($q, $sort);
 
     return inertia('home', compact('magazines'));

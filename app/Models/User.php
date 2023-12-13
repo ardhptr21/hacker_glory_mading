@@ -69,4 +69,9 @@ class User extends Authenticatable
       })
       ->orderBy('created_at', $sort);
   }
+
+  public function bookmarks()
+  {
+    return $this->hasMany(Bookmark::class);
+  }
 }

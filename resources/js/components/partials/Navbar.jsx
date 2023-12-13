@@ -1,5 +1,11 @@
 import { Link, usePage } from '@inertiajs/react';
-import { Gauge, House, SignIn, UserPlus } from '@phosphor-icons/react';
+import {
+  BookmarkSimple,
+  Gauge,
+  House,
+  SignIn,
+  UserPlus,
+} from '@phosphor-icons/react';
 
 export default function Navbar() {
   const { user } = usePage().props;
@@ -11,6 +17,11 @@ export default function Navbar() {
       route: route('page.home'),
       active: route().current('page.home'),
       show: true,
+    },
+    {
+      label: 'Bookmark',
+      icon: BookmarkSimple,
+      show: user?.role === 'siswa',
     },
     {
       label: 'Dashboard',
@@ -36,7 +47,7 @@ export default function Navbar() {
   ];
 
   return (
-    <header className="fixed w-full p-5 bg-white shadow">
+    <header className="fixed z-50 w-full p-5 bg-white shadow">
       <nav className="container flex items-center justify-between">
         <div>
           <Link href="/" className="">

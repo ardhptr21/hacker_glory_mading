@@ -7,7 +7,11 @@ import clsx from 'clsx';
 import { useState } from 'react';
 import { useDebouncedCallback } from 'use-debounce';
 
-export default function Filter({ categoryTitle = 'CATEGORIES', className }) {
+export default function Filter({
+  className,
+  withCategory = true,
+  categoryTitle = 'CATEGORIES',
+}) {
   const { url } = usePage();
   const queryParams = new URLSearchParams(url.split('?')[1]);
   const [q, setQ] = useState(queryParams.get('q') || '');
@@ -44,15 +48,17 @@ export default function Filter({ categoryTitle = 'CATEGORIES', className }) {
 
   return (
     <section className={clsx(['space-y-8', { [className]: className }])}>
-      <div className="flex items-center justify-between">
-        <p className="font-bold">{categoryTitle}</p>
-        <div className="flex items-center justify-center gap-2">
-          <Badge text="ART" />
-          <Badge text="TECH" />
-          <Badge text="DESIGN" />
-          <Badge text="MUSIC" />
+      {withCategory && (
+        <div className="flex items-center justify-between">
+          <p className="font-bold">{categoryTitle}</p>
+          <div className="flex items-center justify-center gap-2">
+            <Badge text="ART" />
+            <Badge text="TECH" />
+            <Badge text="DESIGN" />
+            <Badge text="MUSIC" />
+          </div>
         </div>
-      </div>
+      )}
       <div className="flex items-center justify-between">
         <Input
           type="search"
