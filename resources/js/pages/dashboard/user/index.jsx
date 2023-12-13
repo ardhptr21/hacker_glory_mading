@@ -31,7 +31,7 @@ export default function UserDashboard({ users, user: auth }) {
           Buat Baru
         </Button>
       </section>
-      <section>
+      <section className="mt-4">
         <FilterDashboard
           filters={[
             {

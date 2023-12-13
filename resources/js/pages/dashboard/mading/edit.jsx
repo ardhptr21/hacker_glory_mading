@@ -9,7 +9,7 @@ import { Link, useForm, usePage } from '@inertiajs/react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 
-export default function CreateMagazine({ magazine, categories }) {
+export default function EditMagazine({ magazine, categories }) {
   const { user } = usePage().props;
 
   const { data, setData, processing, errors, post } = useForm({

@@ -22,8 +22,22 @@ class DashboardMagazineController extends Controller
     $published = $request->query('published');
     $approved = $request->query('approved');
 
-    $magazines = $magazineRepository->getAll(20, $q, $published, $approved, $sort);
+    $magazines = $magazineRepository->getAllByAuthor(20, auth()->id(), $q, $published, $approved, $sort);
     return inertia('dashboard/mading/index', compact('magazines'));
+  }
+
+  public function requestMading(Request $request)
+  {
+    $q = $request->query('q');
+    $sort = $request->query('sort') ?? 'desc';
+
+    $magazines = Magazine::with(['category:id,name,slug', 'author:id,username'])
+      ->notApproved()
+      ->filter($q, $sort)
+      ->paginate(20)
+      ->withQueryString();
+
+    return inertia('dashboard/mading/request', compact('magazines'));
   }
 
   public function create()
@@ -48,12 +62,20 @@ class DashboardMagazineController extends Controller
 
   public function edit(Magazine $magazine)
   {
+    if ($magazine->author_id !== auth()->id()) {
+      abort(403);
+    }
+
     $categories = Category::all();
     return inertia('dashboard/mading/edit', compact('magazine', 'categories'));
   }
 
   public function update(UpdateMagazineRequest $request, Magazine $magazine)
   {
+    if ($magazine->author_id !== auth()->id()) {
+      abort(403);
+    }
+
     $data = $request->validated();
     if ($request->hasFile('thumbnail')) {
       $data['thumbnail'] = $this->upload($data['thumbnail'], 'thumbnail', 'magazines', $magazine->thumbnail);
@@ -72,6 +94,10 @@ class DashboardMagazineController extends Controller
 
   public function destroy(Magazine $magazine)
   {
+    if ($magazine->author_id !== auth()->id()) {
+      abort(403);
+    }
+
     $deleted = $magazine->delete();
 
     if (!$deleted) {
@@ -86,7 +112,7 @@ class DashboardMagazineController extends Controller
   public function approve(Magazine $magazine)
   {
     $approved = $magazine->update([
-      'approved' => !$magazine->approved
+      'approved' => true,
     ]);
 
     if (!$approved) {

@@ -55,6 +55,9 @@ export default function CreateMagazine({ categories }) {
               label="Kategori"
               placeholder="Pilih kategori"
               value={data.category_id}
+              disabled={processing}
+              error={errors.category_id}
+              isError={!!errors.category_id}
               onChange={(e) => {
                 setData('category_id', e.target.value),
                   setSelectedCategory(

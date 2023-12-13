@@ -1,5 +1,5 @@
 import { Link, usePage } from '@inertiajs/react';
-import { Article, Gauge, Hash, Users } from '@phosphor-icons/react';
+import { Article, Gauge, Hash, Tray, Users } from '@phosphor-icons/react';
 import clsx from 'clsx';
 
 export default function Sidebar() {
@@ -19,6 +19,13 @@ export default function Sidebar() {
       route: route('dashboard.mading.index'),
       active: route().current('dashboard.mading.index'),
       show: user?.role !== 'siswa',
+    },
+    {
+      label: 'Request',
+      icon: Tray,
+      route: route('dashboard.mading.request'),
+      active: route().current('dashboard.mading.request'),
+      show: user?.role === 'admin',
     },
     {
       label: 'Category',

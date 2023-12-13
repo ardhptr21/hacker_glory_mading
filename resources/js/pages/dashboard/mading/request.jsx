@@ -6,11 +6,11 @@ import Table from '@/components/ui/table/Table';
 import Td from '@/components/ui/table/Td';
 import Th from '@/components/ui/table/Th';
 import Tr from '@/components/ui/table/Tr';
-import { Link, useForm } from '@inertiajs/react';
-import { Eye, Pencil, Plus, Trash } from '@phosphor-icons/react';
+import { useForm } from '@inertiajs/react';
+import { Check, X } from '@phosphor-icons/react';
 import toast from 'react-hot-toast';
 
-export default function DashboardMagazine({ magazines, user }) {
+export default function DashboardRequestMagazine({ magazines, user }) {
   const { delete: destroy, patch } = useForm({});
 
   const handleDelete = (slug) => {
@@ -21,36 +21,20 @@ export default function DashboardMagazine({ magazines, user }) {
       });
   };
 
+  const handleApprove = (slug) => {
+    patch(route('dashboard.mading.approve', slug), {
+      onSuccess: () => toast.success('Madin g berhasil diapprove.'),
+      onError: () => toast.error('Mading gagal diapprove.'),
+    });
+  };
+
   return (
     <DashboardLayout>
       <section className="flex justify-between">
         <h1 className="text-xl font-bold">Dashboard Mading</h1>
-        <Button as={Link} href={route('dashboard.mading.create')}>
-          <Plus />
-          Buat Baru
-        </Button>
       </section>
-      <section className="mt-4">
-        <FilterDashboard
-          filters={[
-            {
-              key: 'published',
-              label: 'Published',
-              options: [
-                { label: 'Yes', value: 'yes' },
-                { label: 'No', value: 'no' },
-              ],
-            },
-            {
-              key: 'approved',
-              label: 'Approved',
-              options: [
-                { label: 'Yes', value: 'yes' },
-                { label: 'No', value: 'no' },
-              ],
-            },
-          ]}
-        />
+      <section className="mt-10">
+        <FilterDashboard />
         <div className="block py-8 pt-6 mt-5 bg-white shadow-sm rounded-xl px-9">
           <div className="overflow-x-auto">
             <Table>
@@ -58,7 +42,6 @@ export default function DashboardMagazine({ magazines, user }) {
                 <tr className="font-bold">
                   <Th className="min-w-[50px]">#</Th>
                   <Th className="min-w-[120px]">Judul</Th>
-                  <Th className="min-w-[120px]">Approved</Th>
                   <Th className="min-w-[120px]">Published At</Th>
                   <Th className="min-w-[120px]">Author</Th>
                   <Th className="min-w-[120px]">Category</Th>
@@ -70,35 +53,18 @@ export default function DashboardMagazine({ magazines, user }) {
                   <Tr key={magazine.slug}>
                     <Td>{index + 1}</Td>
                     <Td>{magazine.title}</Td>
-                    <Td>{magazine.approved}</Td>
                     <Td>{magazine.published_at}</Td>
                     <Td>{magazine.author.username}</Td>
                     <Td>{magazine.category.name}</Td>
                     <Td>
                       <div className="flex gap-5">
                         <Button
-                          onClick={() => handleDelete(magazine.slug)}
                           size="box"
-                          className="text-red-500 border-red-500 hover:bg-red-500"
                           variant="outline"
+                          title="Unapprove Mading"
+                          onClick={() => handleApprove(magazine.slug)}
                         >
-                          <Trash />
-                        </Button>
-                        <Button
-                          as={Link}
-                          href={route('dashboard.mading.edit', magazine.slug)}
-                          size="box"
-                          className="text-yellow-500 border-yellow-500 hover:bg-yellow-500"
-                          variant="outline"
-                        >
-                          <Pencil />
-                        </Button>
-                        <Button
-                          size="box"
-                          className="text-blue-500 border-blue-500 hover:bg-blue-500"
-                          variant="outline"
-                        >
-                          <Eye />
+                          {magazine.approved ? <X /> : <Check />}
                         </Button>
                       </div>
                     </Td>

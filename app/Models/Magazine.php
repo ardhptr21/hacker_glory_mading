@@ -72,6 +72,11 @@ class Magazine extends Model
     $query->where('approved', true);
   }
 
+  public function scopeNotApproved(Builder $query)
+  {
+    $query->where('approved', false);
+  }
+
   public function scopeUnpublished(Builder $query)
   {
     $query->where('published_at', '>', now());

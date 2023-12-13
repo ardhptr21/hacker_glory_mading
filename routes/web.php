@@ -51,6 +51,7 @@ Route::prefix('dashboard')->name('dashboard.')->middleware('auth')->group(functi
   Route::controller(DashboardMagazineController::class)->middleware('role:admin,penulis')->prefix('mading')->name('mading.')->group(function () {
     Route::get('/{magazine:slug}/edit', 'edit')->name('edit');
     Route::patch('/{magazine:slug}/approve', 'approve')->name('approve')->middleware('role:admin');
+    Route::get('/request', 'requestMading')->name('request')->middleware('role:admin');
     Route::get('/create', 'create')->name('create');
     Route::put('/{magazine:slug}', 'update')->name('update');
     Route::delete('/{magazine:slug}', 'destroy')->name('destroy');
