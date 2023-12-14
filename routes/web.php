@@ -28,6 +28,8 @@ Route::controller(AuthController::class)->prefix('auth')->name('auth.')->middlew
 // === Profile Routes ===
 Route::controller(ProfileController::class)->prefix('profile')->name('profile.')->middleware('auth')->group(function () {
   Route::get('/', 'index')->name('index');
+  Route::put('/', 'update')->name('update');
+  Route::patch('/change-password', 'change_password')->name('change_password');
 });
 
 // === Category Routes ===

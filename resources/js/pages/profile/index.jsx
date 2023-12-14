@@ -8,9 +8,10 @@ import { UserCircleGear } from '@phosphor-icons/react';
 import { Password } from '@phosphor-icons/react/dist/ssr';
 import clsx from 'clsx';
 import React, { useState } from 'react';
+import toast from 'react-hot-toast';
 
 export default function Profile({ user }) {
-  const { data, setData, processing, errors } = useForm({
+  const { data, setData, processing, errors, put } = useForm({
     name: user.name,
     email: user.email,
     username: user.username,
@@ -22,9 +23,11 @@ export default function Profile({ user }) {
     setData: setDataCP,
     processing: processing_cp,
     errors: errors_cp,
+    patch,
+    reset,
   } = useForm({
     old_password: '',
-    new_password: '',
+    password: '',
   });
 
   const [state, setState] = useState('edit-profile');
@@ -44,11 +47,37 @@ export default function Profile({ user }) {
     },
   ];
 
+  const handleEditProfile = (e) => {
+    e.preventDefault();
+    put(route('profile.update'), {
+      onSuccess: () => {
+        setState('edit-profile');
+        toast.success('Berhasil mengubah profil.');
+      },
+      onError: () => toast.error('Gagal mengubah profil.'),
+    });
+  };
+
+  const handleChangePassword = (e) => [
+    e.preventDefault(),
+    patch(route('profile.change_password'), {
+      onSuccess: () => {
+        setState('edit-profile');
+        reset();
+        toast.success('Berhasil mengubah password.');
+      },
+      onError: () => {
+        reset();
+        toast.error('Gagal mengubah password.');
+      },
+    }),
+  ];
+
   return (
     <GeneralLayout className="pt-36">
       <section>
         <div className="flex flex-col items-center justify-center w-full gap-10 px-10 py-20 bg-white shadow rounded-xl">
-          <PhotoProfile name="hello" />
+          <PhotoProfile name={user.name} />
           <div className="space-y-2 text-center">
             <h1 className="text-3xl font-bold">{user.name}</h1>
             <p className="font-semibold">
@@ -86,7 +115,7 @@ export default function Profile({ user }) {
         {state === 'edit-profile' && (
           <div className="w-full p-10 bg-white shadow rounded-xl">
             <h3 className="text-xl font-bold">Edit Profil</h3>
-            <form action="" className="mt-5 space-y-3">
+            <form onSubmit={handleEditProfile} className="mt-5 space-y-3">
               <Input
                 label="Nama"
                 placeholder="Masukkan nama"
@@ -143,7 +172,7 @@ export default function Profile({ user }) {
         {state === 'change-password' && (
           <div className="w-full p-10 bg-white shadow rounded-xl">
             <h3 className="text-xl font-bold">Ganti Password</h3>
-            <form action="" className="mt-5 space-y-3">
+            <form onSubmit={handleChangePassword} className="mt-5 space-y-3">
               <Input
                 type="password"
                 label="Password Lama"
@@ -159,11 +188,11 @@ export default function Profile({ user }) {
                 type="password"
                 label="Password Baru"
                 placeholder="Masukkan password baru"
-                value={data_cp.new_password}
-                onChange={(e) => setDataCP('new_password', e.target.value)}
+                value={data_cp.password}
+                onChange={(e) => setDataCP('password', e.target.value)}
                 disabled={processing_cp}
-                error={errors_cp.new_password}
-                isError={!!errors_cp.new_password}
+                error={errors_cp.password}
+                isError={!!errors_cp.password}
                 required
               />
 
