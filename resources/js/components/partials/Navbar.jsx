@@ -61,7 +61,9 @@ export default function Navbar() {
       <nav className="container flex items-center justify-between">
         <div>
           <Link href="/" className="">
-            <span className="text-xl font-bold">Hacker Glory</span>
+            <span className="text-xl font-bold tracking-wide font-titan">
+              Hacker Glory
+            </span>
           </Link>
         </div>
         <div className="flex items-center justify-center gap-5">

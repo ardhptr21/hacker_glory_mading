@@ -24,7 +24,7 @@ export default function ViewMagazineArticle({ magazine }) {
               <Siren weight="bold" size={18} /> <span>Penting</span>
             </div>
           )}
-          <h1 className="font-extrabold uppercase text-7xl">
+          <h1 className="font-extrabold tracking-wide uppercase text-7xl font-titan">
             {magazine.title}
           </h1>
         </div>

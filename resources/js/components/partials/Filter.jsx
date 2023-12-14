@@ -100,7 +100,7 @@ export default function Filter({
         <Input
           type="search"
           placeholder="Search"
-          className="border border-l border-black w-[500px]"
+          className="border border-l border-black w-[520px]"
           value={q}
           onChange={handleSearchChange}
         />

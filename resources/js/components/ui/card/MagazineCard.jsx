@@ -49,7 +49,7 @@ export default function MagazineCard({
         { [className]: className },
       ])}
     >
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col-reverse items-center justify-between gap-3">
         <p className="inline-flex items-center gap-2 text-sm">
           <Clock size={18} weight="bold" />
           {magazine.published_at}

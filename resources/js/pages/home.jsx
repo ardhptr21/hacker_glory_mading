@@ -7,7 +7,7 @@ export default function Home({ magazines }) {
     <GeneralLayout>
       <section className="flex flex-col-reverse items-center justify-center w-full h-screen gap-10 md:gap-28 md:flex-row">
         <div className="space-y-5 text-center md:space-y-10 md:text-left">
-          <h1 className="text-5xl font-extrabold md:text-8xl">
+          <h1 className="text-5xl font-extrabold tracking-wide md:text-8xl font-titan">
             Hacker Glory Mading
           </h1>
           <p className="md:text-xl">

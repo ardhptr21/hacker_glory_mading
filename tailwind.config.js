@@ -3,6 +3,10 @@ module.exports = {
   content: ['./resources/**/*.blade.php', './resources/**/*.{js,jsx}'],
   theme: {
     extend: {
+      fontFamily: {
+        roboto: ['"Roboto Mono"', 'sans-serif'],
+        titan: ['"Titan One"', 'sans-serif'],
+      },
       typography: {
         DEFAULT: {
           css: {

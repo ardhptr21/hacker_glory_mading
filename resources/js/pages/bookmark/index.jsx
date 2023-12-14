@@ -16,7 +16,7 @@ export default function ViewCategory({ bookmarks }) {
           </Button>
           <p className="font-bold">BOOKMARK</p>
         </div>
-        <h1 className="mx-auto font-extrabold text-center uppercase before:-z-10 text-9xl max-w-max">
+        <h1 className="mx-auto font-extrabold tracking-wide text-center uppercase before:-z-10 text-9xl max-w-max font-titan">
           BOOKMARK
         </h1>
       </section>
