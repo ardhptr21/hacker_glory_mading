@@ -79,9 +79,19 @@ export default function MagazineCard({
         <p className="leading-relaxed tracking-wide">{magazine.description}</p>
       </div>
       <div className="flex items-center justify-between">
-        <p className="inline-flex items-center gap-2">
-          <UserCircle size={20} weight="bold" /> {magazine.author.username}
-        </p>
+        {isPreview ? (
+          <p data-ignore className="inline-flex items-center gap-2">
+            <UserCircle size={20} weight="bold" /> @{magazine.author.username}
+          </p>
+        ) : (
+          <Link
+            href={route('author.view', magazine.author.username)}
+            data-ignore
+            className="inline-flex items-center gap-2"
+          >
+            <UserCircle size={20} weight="bold" /> @{magazine.author.username}
+          </Link>
+        )}
         {!isPreview && user?.role === 'siswa' && (
           <button
             data-ignore
@@ -90,11 +100,12 @@ export default function MagazineCard({
           >
             <Bookmark
               size={28}
+              weight={!!unbookmark ? 'fill' : 'regular'}
               className={clsx([
                 'duration-150 pointer-events-none',
                 {
-                  'group-hover:text-yellow-500': !unbookmark,
-                  'text-yellow-500': !!unbookmark,
+                  'group-hover:text-orange-700': !unbookmark,
+                  'text-orange-700': !!unbookmark,
                 },
               ])}
             />

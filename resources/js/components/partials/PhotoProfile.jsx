@@ -5,12 +5,12 @@ export default function PhotoProfile({ size = 200, image = '', name }) {
 
   return (
     <div
-      className="flex items-center justify-center overflow-hidden border border-black rounded-full aspect-square"
+      className="flex items-center justify-center overflow-hidden border rounded-full aspect-square"
       style={{ width: `${size}px`, height: `${size}px` }}
     >
       {fallback ? (
         <div
-          className="flex items-center justify-center w-full h-full font-bold text-white uppercase bg-black select-none"
+          className="flex items-center justify-center w-full h-full font-bold text-white uppercase bg-orange-700 select-none"
           style={{
             fontSize: `${size / 3}px`,
           }}

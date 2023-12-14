@@ -74,4 +74,9 @@ class User extends Authenticatable
   {
     return $this->hasMany(Bookmark::class);
   }
+
+  public function magazines()
+  {
+    return $this->hasMany(Magazine::class, 'author_id');
+  }
 }

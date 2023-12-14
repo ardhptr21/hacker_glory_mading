@@ -1,9 +1,9 @@
 import GeneralLayout from '@/components/layouts/GeneralLayout';
+import PhotoProfile from '@/components/partials/PhotoProfile';
 import Badge from '@/components/ui/Badge';
 import Button from '@/components/ui/Button';
 import { Link } from '@inertiajs/react';
-import { ArrowLeft, Clock, UserCircle } from '@phosphor-icons/react';
-import 'react-quill/dist/quill.snow.css';
+import { ArrowLeft, Clock, Siren, UserCircle } from '@phosphor-icons/react';
 
 export default function ViewMagazineArticle({ magazine }) {
   return (
@@ -18,9 +18,16 @@ export default function ViewMagazineArticle({ magazine }) {
         </div>
       </section>
       <section className="flex items-center justify-center gap-40 mt-20">
-        <h1 className="flex-1 font-extrabold uppercase text-7xl">
-          {magazine.title}
-        </h1>
+        <div className="flex-1">
+          {!!magazine.important && (
+            <div className="inline-flex items-center gap-2 px-3 py-1 text-sm font-semibold text-white bg-orange-700 rounded-lg">
+              <Siren weight="bold" size={18} /> <span>Penting</span>
+            </div>
+          )}
+          <h1 className="font-extrabold uppercase text-7xl">
+            {magazine.title}
+          </h1>
+        </div>
         <p className="flex-1 text-lg font-semibold leading-relaxed">
           {magazine.description}
         </p>
@@ -49,14 +56,8 @@ export default function ViewMagazineArticle({ magazine }) {
           <div className="flex items-start justify-between w-5/6 min-h-screen gap-20 mx-auto mt-16 space-y-5">
             <div className="sticky w-[720px] top-28">
               <div className="inline-flex items-center gap-5">
-                <div className="w-20 h-20 overflow-hidden bg-gray-500 rounded-full">
-                  <img
-                    className="object-cover w-full h-full"
-                    src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8dXNlcnxlbnwwfHwwfHx8MA%3D%3D"
-                    alt=""
-                  />
-                </div>
-                <h3 className="text-3xl font-bold">Ardhi Putra</h3>
+                <PhotoProfile size={60} name={magazine.author.name} />
+                <h3 className="text-3xl font-bold">{magazine.author.name}</h3>
               </div>
               <div className="mt-5 space-y-3">
                 <div className="flex items-start justify-between gap-5">

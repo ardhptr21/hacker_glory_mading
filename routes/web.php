@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\BookmarkController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\Dashboard\DashboardCategoryController;
@@ -35,6 +36,11 @@ Route::controller(ProfileController::class)->prefix('profile')->name('profile.')
 // === Category Routes ===
 Route::controller(CategoryController::class)->prefix('categories')->name('category.')->group(function () {
   Route::get('/{category:slug}', 'view')->name('view');
+});
+
+// === Author Routes ===
+Route::controller(AuthorController::class)->prefix('authors')->name('author.')->group(function () {
+  Route::get('/{author:username}', 'view')->name('view');
 });
 
 // === Magazine/Mading Routes ====
