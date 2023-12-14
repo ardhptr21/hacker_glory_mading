@@ -54,6 +54,11 @@ class Magazine extends Model
     return $this->hasMany(Bookmark::class);
   }
 
+  public function analytics()
+  {
+    return $this->hasMany(Analytic::class);
+  }
+
   public function publishedAt(): Attribute
   {
     return Attribute::make(

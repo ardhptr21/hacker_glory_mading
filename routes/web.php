@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\BookmarkController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\Dashboard\DashboardCategoryController;
+use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Dashboard\DashboardMagazineController;
 use App\Http\Controllers\Dashboard\DashboardUserController;
 use App\Http\Controllers\ImageUploadController;
@@ -57,7 +58,10 @@ Route::controller(BookmarkController::class)->middleware(['auth', 'role:siswa'])
 
 // === Dashboard Routes ===
 Route::prefix('dashboard')->name('dashboard.')->middleware(['auth', 'role:admin,penulis'])->group(function () {
-  Route::inertia('/', 'dashboard/index')->name('index');
+  // === Main Dashboard Route ===
+  Route::controller(DashboardController::class)->group(function () {
+    Route::get('/', 'index')->name('index');
+  });
 
   // === User Routes ===
   Route::controller(DashboardUserController::class)->middleware('role:admin')->prefix('users')->name('user.')->group(function () {

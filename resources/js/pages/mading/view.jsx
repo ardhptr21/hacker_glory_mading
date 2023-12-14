@@ -47,17 +47,17 @@ export default function ViewMagazineArticle({ magazine }) {
         </div>
         <div className="w-full overflow-hidden bg-white aspect-video">
           <img
-            className="object-cover w-full h-full"
+            className="object-cover w-full h-full rounded-xl"
             src={`/storage/${magazine.thumbnail}`}
             alt={magazine.title}
           />
         </div>
         {magazine.article && (
-          <div className="flex items-start justify-between w-5/6 min-h-screen gap-20 mx-auto mt-16 space-y-5">
-            <div className="sticky w-[720px] top-28">
+          <div className="flex items-start justify-between w-5/6 min-h-[85vh] gap-10 mx-auto mt-16 space-y-5">
+            <div className="sticky w-[800px] top-28 bg-white p-5 rounded-xl shadow">
               <div className="inline-flex items-center gap-5">
-                <PhotoProfile size={60} name={magazine.author.name} />
-                <h3 className="text-3xl font-bold">{magazine.author.name}</h3>
+                <PhotoProfile size={50} name={magazine.author.name} />
+                <h3 className="text-2xl font-bold">{magazine.author.name}</h3>
               </div>
               <div className="mt-5 space-y-3">
                 <div className="flex items-start justify-between gap-5">

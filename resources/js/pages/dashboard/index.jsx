@@ -1,11 +1,8 @@
 import DashboardLayout from '@/components/layouts/DashboardLayout';
 import OverviewCard from '@/components/ui/card/OverviewCard';
-import { usePage } from '@inertiajs/react';
 import { Article, Eye, Hourglass, Users } from '@phosphor-icons/react';
 
-export default function Dashboard() {
-  const { user } = usePage().props;
-
+export default function Dashboard({ user, analytics }) {
   return (
     <DashboardLayout>
       <h1 className="text-xl font-bold">Dashboard</h1>
@@ -32,15 +29,29 @@ export default function Dashboard() {
         </div>
       </section>
 
-      <section className="grid grid-cols-4 gap-5 mt-10">
-        <OverviewCard title="Total Pengunjung" icon={Eye} value={1039} />
-        <OverviewCard title="Total Majalah" icon={Article} value={18} />
+      <section className="grid grid-flow-col gap-5 mt-10">
+        <OverviewCard
+          title="Total Pengunjung"
+          icon={Eye}
+          value={analytics.total_views}
+        />
+        <OverviewCard
+          title="Total Majalah"
+          icon={Article}
+          value={analytics.total_magazines}
+        />
         <OverviewCard
           title="Total Majalah Pending"
           icon={Hourglass}
-          value={2}
+          value={analytics.total_pending_magazines}
         />
-        <OverviewCard title="Total Users" icon={Users} value={201} />
+        {user.role === 'admin' && (
+          <OverviewCard
+            title="Total Users"
+            icon={Users}
+            value={analytics.total_users}
+          />
+        )}
       </section>
     </DashboardLayout>
   );
