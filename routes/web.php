@@ -9,6 +9,7 @@ use App\Http\Controllers\Dashboard\DashboardUserController;
 use App\Http\Controllers\ImageUploadController;
 use App\Http\Controllers\MagazineController;
 use App\Http\Controllers\PageController;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 // === General Page Routes ===
@@ -22,6 +23,11 @@ Route::controller(AuthController::class)->prefix('auth')->name('auth.')->middlew
   Route::inertia('/register', 'auth/register')->name('register');
   Route::post('/login', 'login');
   Route::post('/register', 'register');
+});
+
+// === Profile Routes ===
+Route::controller(ProfileController::class)->prefix('profile')->name('profile.')->middleware('auth')->group(function () {
+  Route::get('/', 'index')->name('index');
 });
 
 // === Category Routes ===

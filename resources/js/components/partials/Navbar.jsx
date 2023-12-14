@@ -22,11 +22,15 @@ export default function Navbar() {
     {
       label: 'Bookmark',
       icon: BookmarkSimple,
+      route: route('bookmark.index'),
+      active: route().current('bookmark.index'),
       show: !!user && user?.role === 'siswa',
     },
     {
       label: 'Profil',
       icon: User,
+      route: route('profile.index'),
+      active: route().current('profile.index'),
       show: !!user,
     },
     {
