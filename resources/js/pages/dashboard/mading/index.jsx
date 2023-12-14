@@ -37,16 +37,24 @@ export default function DashboardMagazine({ magazines, user }) {
               key: 'published',
               label: 'Published',
               options: [
-                { label: 'Yes', value: 'yes' },
-                { label: 'No', value: 'no' },
+                { label: 'Ya', value: 'yes' },
+                { label: 'Tidak', value: 'no' },
               ],
             },
             {
               key: 'approved',
               label: 'Approved',
               options: [
-                { label: 'Yes', value: 'yes' },
-                { label: 'No', value: 'no' },
+                { label: 'Ya', value: 'yes' },
+                { label: 'Tidak', value: 'no' },
+              ],
+            },
+            {
+              key: 'important',
+              label: 'Penting',
+              options: [
+                { label: 'Ya', value: 'yes' },
+                { label: 'Tidak', value: 'no' },
               ],
             },
           ]}
@@ -59,9 +67,10 @@ export default function DashboardMagazine({ magazines, user }) {
                   <Th className="min-w-[50px]">#</Th>
                   <Th className="min-w-[120px]">Judul</Th>
                   <Th className="min-w-[120px]">Approved</Th>
-                  <Th className="min-w-[120px]">Published At</Th>
                   <Th className="min-w-[120px]">Author</Th>
                   <Th className="min-w-[120px]">Category</Th>
+                  <Th className="min-w-[120px]">Penting</Th>
+                  <Th className="min-w-[120px]">Published At</Th>
                   <Th></Th>
                 </tr>
               </thead>
@@ -70,10 +79,11 @@ export default function DashboardMagazine({ magazines, user }) {
                   <Tr key={magazine.slug}>
                     <Td>{index + 1}</Td>
                     <Td>{magazine.title}</Td>
-                    <Td>{magazine.approved}</Td>
-                    <Td>{magazine.published_at}</Td>
+                    <Td>{magazine.approved ? 'Ya' : 'Tidak'}</Td>
                     <Td>{magazine.author.username}</Td>
                     <Td>{magazine.category.name}</Td>
+                    <Td>{magazine.important ? 'Ya' : 'Tidak'}</Td>
+                    <Td>{magazine.published_at}</Td>
                     <Td>
                       <div className="flex gap-5">
                         <Button
@@ -94,6 +104,8 @@ export default function DashboardMagazine({ magazines, user }) {
                           <Pencil />
                         </Button>
                         <Button
+                          as={Link}
+                          href={route('mading.view', magazine.slug)}
                           size="box"
                           className="text-blue-500 border-blue-500 hover:bg-blue-500"
                           variant="outline"

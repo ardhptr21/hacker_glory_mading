@@ -42,7 +42,7 @@ Route::controller(BookmarkController::class)->middleware(['auth', 'role:siswa'])
 });
 
 // === Dashboard Routes ===
-Route::prefix('dashboard')->name('dashboard.')->middleware('auth')->group(function () {
+Route::prefix('dashboard')->name('dashboard.')->middleware(['auth', 'role:admin,penulis'])->group(function () {
   Route::inertia('/', 'dashboard/index')->name('index');
 
   // === User Routes ===
@@ -68,7 +68,7 @@ Route::prefix('dashboard')->name('dashboard.')->middleware('auth')->group(functi
   });
 
   // === Dashboard Category Routes ===
-  Route::controller(DashboardCategoryController::class)->middleware('role:admin,penulis')->prefix('categories')->name('category.')->group(function () {
+  Route::controller(DashboardCategoryController::class)->prefix('categories')->name('category.')->group(function () {
     Route::patch('/{category:slug}', 'update')->name('update');
     Route::delete('/{category:slug}', 'destroy')->name('destroy');
     Route::get('/', 'index')->name('index');

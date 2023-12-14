@@ -21,8 +21,15 @@ class DashboardMagazineController extends Controller
     $sort = $request->query('sort') ?? 'desc';
     $published = $request->query('published');
     $approved = $request->query('approved');
+    $important = $request->query('important');
 
-    $magazines = $magazineRepository->getAllByAuthor(20, auth()->id(), $q, $published, $approved, $sort);
+    $magazines = [];
+    if ($request->user()->role === 'admin') {
+      $magazines = $magazineRepository->getAll(20, $q, $published, $approved, $important, $sort);
+    } else {
+      $magazines = $magazineRepository->getAllByAuthor(20, auth()->id(), $q, $published, $approved, $important, $sort);
+    }
+
     return inertia('dashboard/mading/index', compact('magazines'));
   }
 
@@ -62,7 +69,7 @@ class DashboardMagazineController extends Controller
 
   public function edit(Magazine $magazine)
   {
-    if ($magazine->author_id !== auth()->id()) {
+    if ($magazine->author_id !== auth()->id() and auth()->user()->role !== 'admin') {
       abort(403);
     }
 
@@ -73,7 +80,7 @@ class DashboardMagazineController extends Controller
 
   public function update(UpdateMagazineRequest $request, Magazine $magazine)
   {
-    if ($magazine->author_id !== auth()->id()) {
+    if ($magazine->author_id !== auth()->id() and auth()->user()->role !== 'admin') {
       abort(403);
     }
 
@@ -95,7 +102,7 @@ class DashboardMagazineController extends Controller
 
   public function destroy(Magazine $magazine)
   {
-    if ($magazine->author_id !== auth()->id()) {
+    if ($magazine->author_id !== auth()->id() and auth()->user()->role !== 'admin') {
       abort(403);
     }
 

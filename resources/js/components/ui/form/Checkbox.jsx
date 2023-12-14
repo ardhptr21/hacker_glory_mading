@@ -7,6 +7,7 @@ export default function Checkbox({ label, id, ...props }) {
         id={id}
         type="checkbox"
         className="relative w-4 h-4 bg-white border-2 border-black rounded-sm appearance-none peer shrink-0 checked:bg-black checked:border-0"
+        {...props}
       />
       <label htmlFor={id} className="text-sm select-none">
         {label}

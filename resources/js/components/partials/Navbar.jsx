@@ -4,6 +4,7 @@ import {
   Gauge,
   House,
   SignIn,
+  User,
   UserPlus,
 } from '@phosphor-icons/react';
 
@@ -21,14 +22,19 @@ export default function Navbar() {
     {
       label: 'Bookmark',
       icon: BookmarkSimple,
-      show: user?.role === 'siswa',
+      show: !!user && user?.role === 'siswa',
+    },
+    {
+      label: 'Profil',
+      icon: User,
+      show: !!user,
     },
     {
       label: 'Dashboard',
       icon: Gauge,
       route: route('dashboard.index'),
       active: route().current('dashboard.index'),
-      show: !!user,
+      show: !!user && user?.role !== 'siswa',
     },
     {
       label: 'Daftar',

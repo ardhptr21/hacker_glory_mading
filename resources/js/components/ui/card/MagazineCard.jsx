@@ -1,6 +1,6 @@
 import Badge from '@/components/ui/Badge';
 import { Link, router, useForm, usePage } from '@inertiajs/react';
-import { Bookmark, Clock, UserCircle } from '@phosphor-icons/react';
+import { Bookmark, Clock, Siren, UserCircle } from '@phosphor-icons/react';
 import clsx from 'clsx';
 import toast from 'react-hot-toast';
 
@@ -70,6 +70,11 @@ export default function MagazineCard({
         />
       </div>
       <div className="space-y-4">
+        {!!magazine.important && (
+          <div className="inline-flex items-center gap-2 px-3 py-1 text-sm font-semibold text-white bg-orange-700 rounded-lg">
+            <Siren weight="bold" size={18} /> <span>Penting</span>
+          </div>
+        )}
         <h3 className="text-2xl font-bold">{magazine.title}</h3>
         <p className="leading-relaxed tracking-wide">{magazine.description}</p>
       </div>

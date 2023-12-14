@@ -23,7 +23,8 @@ class Magazine extends Model
     'category_id',
     'author_id',
     'published_at',
-    'approved'
+    'approved',
+    'important'
   ];
 
   protected $appends = ['is_published'];
@@ -60,6 +61,7 @@ class Magazine extends Model
     );
   }
 
+
   protected function isPublished(): Attribute
   {
     return Attribute::make(
@@ -67,6 +69,10 @@ class Magazine extends Model
     );
   }
 
+  public function scopeImportant(Builder $query)
+  {
+    $query->where('important', true);
+  }
 
   public function scopePublished(Builder $query)
   {
@@ -88,7 +94,7 @@ class Magazine extends Model
     $query->where('published_at', '>', now());
   }
 
-  public function scopeFilter(Builder $query, ?string $q = null, ?string $published = null, ?string $approved = null, ?string $sort = 'desc')
+  public function scopeFilter(Builder $query, ?string $q = null, ?string $published = null, ?string $approved = null, ?string $important = null, ?string $sort = 'desc')
   {
     $query
       ->when($q, function ($query, $q) {
@@ -101,6 +107,13 @@ class Magazine extends Model
           $query->published();
         } else if ($published === 'no') {
           $query->unpublished();
+        }
+      })
+      ->when($important, function ($query, $important) {
+        if ($important === 'yes') {
+          $query->important();
+        } else if ($important === 'no') {
+          $query->where('important', false);
         }
       })
       ->when($approved, function ($query, $approved) {

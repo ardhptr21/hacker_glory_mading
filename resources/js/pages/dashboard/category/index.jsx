@@ -82,6 +82,7 @@ export default function CategoryDashboard({ categories }) {
               error={errors.name}
               isError={!!errors.name && !willUpdate}
               disabled={processing || willUpdate}
+              required
             />
             <Button type="submit" disabled={processing || willUpdate}>
               <Plus />

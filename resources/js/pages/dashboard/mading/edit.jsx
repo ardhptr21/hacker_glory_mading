@@ -2,6 +2,7 @@ import DashboardLayout from '@/components/layouts/DashboardLayout';
 import Editor from '@/components/partials/Editor';
 import Button from '@/components/ui/Button';
 import MagazineCard from '@/components/ui/card/MagazineCard';
+import Checkbox from '@/components/ui/form/Checkbox';
 import Input from '@/components/ui/form/Input';
 import Select from '@/components/ui/form/Select';
 import Textarea from '@/components/ui/form/Textarea';
@@ -19,6 +20,7 @@ export default function EditMagazine({ magazine, categories }) {
     thumbnail: '',
     category_id: magazine.category_id,
     article: magazine.article,
+    important: magazine.important,
   });
 
   const [selectedCategory, setSelectedCategory] = useState(
@@ -41,6 +43,13 @@ export default function EditMagazine({ magazine, categories }) {
       <section className="mt-10">
         <div className="grid grid-cols-2 gap-10">
           <form onSubmit={handleSubmit} className="flex-1 space-y-3">
+            <Checkbox
+              label="Tandai sebagai penting"
+              id="important"
+              checked={data.important}
+              onChange={(e) => setData('important', e.target.checked)}
+              disabled={processing}
+            />
             <Input
               label="Judul"
               placeholder="Masukkan judul mading"
