@@ -25,6 +25,7 @@ Route::controller(AuthController::class)->prefix('auth')->name('auth.')->middlew
   Route::inertia('/register', 'auth/register')->name('register');
   Route::post('/login', 'login');
   Route::post('/register', 'register');
+  Route::get('/logout', 'logout')->name('logout')->withoutMiddleware('guest')->middleware('auth');
 });
 
 // === Profile Routes ===
@@ -46,6 +47,7 @@ Route::controller(AuthorController::class)->prefix('authors')->name('author.')->
 
 // === Magazine/Mading Routes ====
 Route::controller(MagazineController::class)->prefix('mading')->name('mading.')->group(function () {
+  Route::get('/', 'index')->name('index');
   Route::get('/{magazine:slug}', 'view')->name('view');
 });
 

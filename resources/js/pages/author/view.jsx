@@ -1,5 +1,6 @@
 import GeneralLayout from '@/components/layouts/GeneralLayout';
 import Filter from '@/components/partials/Filter';
+import Pagination from '@/components/partials/Pagination';
 import PhotoProfile from '@/components/partials/PhotoProfile';
 import Button from '@/components/ui/Button';
 import MagazineCard from '@/components/ui/card/MagazineCard';
@@ -27,7 +28,7 @@ export default function ViewCategory({ author, magazines }) {
       </section>
       <Filter className="mt-24" categoryInParam={true} />
       <section className="gap-5 mt-16 columns-sm">
-        {magazines.map((magazine) => (
+        {magazines?.data?.map((magazine) => (
           <MagazineCard
             className="mb-5 break-inside-avoid"
             key={magazine.slug}
@@ -41,6 +42,17 @@ export default function ViewCategory({ author, magazines }) {
           />
         ))}
       </section>
+      <div className="flex justify-center mt-20">
+        <Pagination
+          total={magazines.total}
+          from={magazines.from}
+          to={magazines.to}
+          prevPageUrl={magazines.prev_page_url}
+          nextPageUrl={magazines.next_page_url}
+          links={magazines.links}
+          withInfo={false}
+        />
+      </div>
     </GeneralLayout>
   );
 }

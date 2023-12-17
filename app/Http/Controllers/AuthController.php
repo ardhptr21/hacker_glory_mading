@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Requests\Auth\RegisterRequest;
 use App\Models\User;
+use Illuminate\Http\Request;
 
 class AuthController extends Controller
 {
@@ -36,5 +37,15 @@ class AuthController extends Controller
     if ($user) return redirect()->route('auth.login')->with('success', 'Akun berhasil dibuat, silahkan login.');
 
     return back()->with('error', 'Akun gagal dibuat, silahkan coba lagi.');
+  }
+
+  public function logout(Request $request)
+  {
+    auth()->logout();
+
+    $request->session()->invalidate();
+    $request->session()->regenerateToken();
+
+    return to_route('auth.login');
   }
 }

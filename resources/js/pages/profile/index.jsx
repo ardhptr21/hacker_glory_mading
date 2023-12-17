@@ -2,7 +2,6 @@ import GeneralLayout from '@/components/layouts/GeneralLayout';
 import PhotoProfile from '@/components/partials/PhotoProfile';
 import Button from '@/components/ui/Button';
 import Input from '@/components/ui/form/Input';
-import Textarea from '@/components/ui/form/Textarea';
 import { useForm } from '@inertiajs/react';
 import { UserCircleGear } from '@phosphor-icons/react';
 import { Password } from '@phosphor-icons/react/dist/ssr';
@@ -84,10 +83,6 @@ export default function Profile({ user }) {
               @{user.username} • {user.role}{' '}
               {user?.role === 'siswa' && <>({user.nis})</>}
             </p>
-            <p className="max-w-lg mx-auto text-sm">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt
-              facere sint laborum perferendis.
-            </p>
           </div>
         </div>
       </section>
@@ -162,7 +157,6 @@ export default function Profile({ user }) {
                   required
                 />
               )}
-              <Textarea label="Bio" rows={8} placeholder="Masukkan bio" />
               <div className="flex justify-end">
                 <Button disabled={processing}>Ubah</Button>
               </div>

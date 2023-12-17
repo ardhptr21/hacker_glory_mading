@@ -1,5 +1,5 @@
 import DashboardLayout from '@/components/layouts/DashboardLayout';
-import PaginationTable from '@/components/partials/PaginationTable';
+import Pagination from '@/components/partials/Pagination';
 import Button from '@/components/ui/Button';
 import Input from '@/components/ui/form/Input';
 import Table from '@/components/ui/table/Table';
@@ -161,7 +161,7 @@ export default function CategoryDashboard({ categories }) {
                 ))}
               </tbody>
             </Table>
-            <PaginationTable
+            <Pagination
               className="mt-5"
               total={categories.total}
               from={categories.from}

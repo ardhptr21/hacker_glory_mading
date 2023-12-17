@@ -28,7 +28,7 @@ class MagazineRepository
   {
     return Magazine::with(['category:id,name,slug', 'author:id,username'])
       ->notApproved()
-      ->filter($q, $sort)
+      ->filter($q, null, null, null, $sort)
       ->paginate($paginate)
       ->withQueryString();
   }
@@ -38,7 +38,27 @@ class MagazineRepository
     return Magazine::with(['category:id,name,slug', 'author:id,username'])
       ->approved()
       ->published()
-      ->filter($q, $sort)
+      ->filter($q, null, null, null, $sort)
+      ->paginate(10);
+  }
+
+  public function getImportantAndLatest()
+  {
+    $important_magazines = Magazine::with(['category:id,name,slug', 'author:id,username'])
+      ->important()
+      ->published()
+      ->orderBy('published_at', 'desc')
+      ->orderBy('created_at', 'desc')
       ->get();
+
+    $latest_magazines = Magazine::with(['category:id,name,slug', 'author:id,username'])
+      ->where('important', false)
+      ->published()
+      ->orderBy('published_at', 'desc')
+      ->orderBy('created_at', 'desc')
+      ->take(6)
+      ->get();
+
+    return [$important_magazines, $latest_magazines];
   }
 }

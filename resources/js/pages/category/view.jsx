@@ -4,6 +4,7 @@ import Button from '@/components/ui/Button';
 import MagazineCard from '@/components/ui/card/MagazineCard';
 import { Link } from '@inertiajs/react';
 import { ArrowLeft } from '@phosphor-icons/react';
+import Pagination from '@/components/partials/Pagination';
 
 export default function ViewCategory({ category, magazines }) {
   return (
@@ -22,7 +23,7 @@ export default function ViewCategory({ category, magazines }) {
       </section>
       <Filter className="mt-24" />
       <section className="gap-5 mt-16 columns-sm">
-        {magazines.map((magazine) => (
+        {magazines?.data?.map((magazine) => (
           <MagazineCard
             className="mb-5 break-inside-avoid"
             key={magazine.slug}
@@ -36,6 +37,17 @@ export default function ViewCategory({ category, magazines }) {
           />
         ))}
       </section>
+      <div className="flex justify-center mt-20">
+        <Pagination
+          total={magazines.total}
+          from={magazines.from}
+          to={magazines.to}
+          prevPageUrl={magazines.prev_page_url}
+          nextPageUrl={magazines.next_page_url}
+          links={magazines.links}
+          withInfo={false}
+        />
+      </div>
     </GeneralLayout>
   );
 }

@@ -3,7 +3,7 @@ import { Link } from '@inertiajs/react';
 import { ArrowLeft, ArrowRight } from '@phosphor-icons/react';
 import clsx from 'clsx';
 
-export default function PaginationTable({
+export default function Pagination({
   className,
   total,
   from,
@@ -11,7 +11,7 @@ export default function PaginationTable({
   links,
   prevPageUrl,
   nextPageUrl,
-  currentPage,
+  withInfo = true,
 }) {
   return (
     <div
@@ -20,13 +20,15 @@ export default function PaginationTable({
         { [className]: className },
       ])}
     >
-      <div>
-        <p>
-          Menampilkan <span className="font-semibold">{from}</span> sampai{' '}
-          <span className="font-semibold">{to}</span> dari{' '}
-          <span className="font-semibold">{total}</span> data.
-        </p>
-      </div>
+      {withInfo && (
+        <div>
+          <p>
+            Menampilkan <span className="font-semibold">{from}</span> sampai{' '}
+            <span className="font-semibold">{to}</span> dari{' '}
+            <span className="font-semibold">{total}</span> data.
+          </p>
+        </div>
+      )}
       <div className="flex gap-3">
         {prevPageUrl && (
           <Button

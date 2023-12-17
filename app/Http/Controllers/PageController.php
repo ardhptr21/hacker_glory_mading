@@ -9,11 +9,8 @@ class PageController extends Controller
 {
   public function home(Request $request, MagazineRepository $magazineRepository)
   {
-    $q = $request->query('q');
-    $sort = $request->query('sort', 'desc');
+    [$important_magazines, $latest_magazines] = $magazineRepository->getImportantAndLatest();
 
-    $magazines = $magazineRepository->getAllPublishedAndApproved($q, $sort);
-
-    return inertia('home', compact('magazines'));
+    return inertia('home', compact('important_magazines', 'latest_magazines'));
   }
 }

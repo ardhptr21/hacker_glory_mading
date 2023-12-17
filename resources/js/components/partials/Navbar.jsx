@@ -4,6 +4,7 @@ import {
   Gauge,
   House,
   SignIn,
+  SignOut,
   User,
   UserPlus,
 } from '@phosphor-icons/react';
@@ -79,6 +80,15 @@ export default function Navbar() {
                 {r.label}
               </Link>
             ))}
+          {!!user && (
+            <Link
+              href={route('auth.logout')}
+              className="inline-flex items-center gap-2 px-3 py-1 text-red-500 rounded-lg group hover:bg-red-100"
+            >
+              <SignOut size={20} />
+              Logout
+            </Link>
+          )}
         </div>
       </nav>
     </header>

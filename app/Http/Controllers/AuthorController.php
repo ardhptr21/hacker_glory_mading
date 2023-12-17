@@ -18,7 +18,7 @@ class AuthorController extends Controller
       ->published()
       ->when($category, fn ($query) => $query->where('category_id', $category))
       ->filter($q, $sort)
-      ->get();
+      ->paginate(10);
 
     return inertia('author/view', compact('author', 'magazines'));
   }

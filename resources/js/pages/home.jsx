@@ -1,8 +1,10 @@
-import Filter from '@/components/partials/Filter';
+import Button from '@/components/ui/Button';
 import MagazineCard from '@/components/ui/card/MagazineCard';
+import { Link } from '@inertiajs/react';
+import { ArrowRight, Siren } from '@phosphor-icons/react';
 import GeneralLayout from '../components/layouts/GeneralLayout';
 
-export default function Home({ magazines }) {
+export default function Home({ important_magazines, latest_magazines }) {
   return (
     <GeneralLayout>
       <section className="flex flex-col-reverse items-center justify-center w-full h-screen gap-10 md:gap-28 md:flex-row">
@@ -24,18 +26,57 @@ export default function Home({ magazines }) {
           />
         </div>
       </section>
-      <Filter />
-      <section className="gap-5 mt-16 columns-sm">
-        {magazines.map((magazine) => (
-          <MagazineCard
-            className="mb-5 break-inside-avoid"
-            key={magazine.slug}
-            magazine={{
-              ...magazine,
-              thumbnail: `/storage/${magazine.thumbnail}`,
-            }}
-          />
-        ))}
+
+      <section className="mt-16 space-y-5">
+        <div>
+          <h2 className="text-3xl font-bold flex items-center gap-2">
+            <Siren /> Mading Penting
+          </h2>
+        </div>
+        <div className="gap-5 grid grid-cols-3">
+          {important_magazines.map((magazine) => (
+            <MagazineCard
+              className="mb-5 break-inside-avoid"
+              key={magazine.slug}
+              magazine={{
+                ...magazine,
+                thumbnail: `/storage/${magazine.thumbnail}`,
+              }}
+            />
+          ))}
+        </div>
+      </section>
+
+      <section className="space-y-5 mt-16">
+        <div className="flex items-center justify-between">
+          <h2 className="text-3xl font-bold flex items-center gap-2">
+            <Siren /> Mading Terbaru
+          </h2>
+          <Link
+            className="inline-flex items-center gap-5 hover:underline"
+            href={route('mading.index')}
+          >
+            Selengkapnya
+            <ArrowRight />
+          </Link>
+        </div>
+        <div className="gap-5 grid grid-cols-3">
+          {latest_magazines.map((magazine) => (
+            <MagazineCard
+              className="mb-5 break-inside-avoid"
+              key={magazine.slug}
+              magazine={{
+                ...magazine,
+                thumbnail: `/storage/${magazine.thumbnail}`,
+              }}
+            />
+          ))}
+        </div>
+        <div className="flex justify-center">
+          <Button as={Link} href={route('mading.index')}>
+            Selengkapnya <ArrowRight />
+          </Button>
+        </div>
       </section>
     </GeneralLayout>
   );

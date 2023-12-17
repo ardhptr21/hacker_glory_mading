@@ -16,7 +16,7 @@ class CategoryController extends Controller
       ->with('author:id,username')
       ->published()
       ->filter($q, $sort)
-      ->get();
+      ->paginate(10);
 
     return inertia('category/view', compact('category', 'magazines'));
   }

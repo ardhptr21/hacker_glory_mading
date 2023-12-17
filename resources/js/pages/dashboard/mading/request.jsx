@@ -1,6 +1,6 @@
 import DashboardLayout from '@/components/layouts/DashboardLayout';
 import FilterDashboard from '@/components/partials/FilterDashboard';
-import PaginationTable from '@/components/partials/PaginationTable';
+import Pagination from '@/components/partials/Pagination';
 import Button from '@/components/ui/Button';
 import Table from '@/components/ui/table/Table';
 import Td from '@/components/ui/table/Td';
@@ -72,7 +72,7 @@ export default function DashboardRequestMagazine({ magazines, user }) {
                 ))}
               </tbody>
             </Table>
-            <PaginationTable
+            <Pagination
               className="mt-5"
               total={magazines.total}
               from={magazines.from}

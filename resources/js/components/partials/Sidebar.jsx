@@ -1,5 +1,12 @@
 import { Link, usePage } from '@inertiajs/react';
-import { Article, Gauge, Hash, Tray, Users } from '@phosphor-icons/react';
+import {
+  Article,
+  Gauge,
+  Hash,
+  SignOut,
+  Tray,
+  Users,
+} from '@phosphor-icons/react';
 import clsx from 'clsx';
 
 export default function Sidebar() {
@@ -44,27 +51,38 @@ export default function Sidebar() {
   ];
 
   return (
-    <aside className="h-screen p-10 space-y-3 bg-white w-80">
-      {routes
-        .filter((v) => v.show)
-        .map((r) => (
-          <Link
-            key={r.label}
-            className={clsx(
-              [
-                'flex items-center gap-2 px-5 py-3 rounded-lg transition duration-300',
-              ],
-              {
-                'text-white bg-black': r.active,
-                'hover:bg-gray-200': !r.active,
-              }
-            )}
-            href={r.route}
-          >
-            <r.icon size={24} />
-            {r.label}
-          </Link>
-        ))}
+    <aside className="h-screen p-10 bg-white w-80 flex flex-col justify-between">
+      <div className="space-y-3">
+        {routes
+          .filter((v) => v.show)
+          .map((r) => (
+            <Link
+              key={r.label}
+              className={clsx(
+                [
+                  'flex items-center gap-2 px-5 py-3 rounded-lg transition duration-300',
+                ],
+                {
+                  'text-white bg-black': r.active,
+                  'hover:bg-gray-200': !r.active,
+                }
+              )}
+              href={r.route}
+            >
+              <r.icon size={24} />
+              {r.label}
+            </Link>
+          ))}
+      </div>
+      <div>
+        <Link
+          href={route('auth.logout')}
+          className="flex items-center gap-2 px-5 py-3 rounded-lg transition duration-300 hover:bg-red-100 border text-red-500 border-red-500"
+        >
+          <SignOut size={24} />
+          Logout
+        </Link>
+      </div>
     </aside>
   );
 }

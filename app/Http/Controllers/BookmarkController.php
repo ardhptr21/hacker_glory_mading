@@ -17,7 +17,7 @@ class BookmarkController extends Controller
       $query->filter($q);
     })->when($sort, function ($query, $sort) {
       $query->orderBy('created_at', $sort);
-    })->get();
+    })->paginate(10);
 
     return inertia('bookmark/index', compact('bookmarks'));
   }
