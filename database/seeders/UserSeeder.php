@@ -33,10 +33,9 @@ class UserSeeder extends Seeder
       'name' => 'Joni Doe',
       'username' => 'joni',
       'email' => 'jonidoe@hackerglory.id',
-      'role' => 'penulis',
+      'role' => 'siswa',
+      'nis' => '3719281823',
       'password' => 'secret123'
     ]);
-
-    User::factory(30)->create();
   }
 }
