@@ -1,5 +1,4 @@
 import GeneralLayout from '@/components/layouts/GeneralLayout';
-import PhotoProfile from '@/components/partials/PhotoProfile';
 import Badge from '@/components/ui/Badge';
 import Button from '@/components/ui/Button';
 import { Link } from '@inertiajs/react';
@@ -55,9 +54,9 @@ export default function ViewMagazineArticle({ magazine }) {
         {magazine.article && (
           <div className="flex items-start justify-between w-5/6 min-h-[85vh] gap-10 mx-auto mt-16 space-y-5">
             <div className="sticky w-[800px] top-28 bg-white p-5 rounded-xl shadow">
-              <div className="inline-flex items-center gap-5">
-                <PhotoProfile size={50} name={magazine.author.name} />
+              <div>
                 <h3 className="text-2xl font-bold">{magazine.author.name}</h3>
+                <small>@{magazine.author.username}</small>
               </div>
               <div className="mt-5 space-y-3">
                 <div className="flex items-start justify-between gap-5">

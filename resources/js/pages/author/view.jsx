@@ -1,7 +1,6 @@
 import GeneralLayout from '@/components/layouts/GeneralLayout';
 import Filter from '@/components/partials/Filter';
 import Pagination from '@/components/partials/Pagination';
-import PhotoProfile from '@/components/partials/PhotoProfile';
 import Button from '@/components/ui/Button';
 import MagazineCard from '@/components/ui/card/MagazineCard';
 import { Link } from '@inertiajs/react';
@@ -19,7 +18,6 @@ export default function ViewCategory({ author, magazines }) {
           <p className="font-bold">AUTHOR</p>
         </div>
         <div className="flex flex-col items-center justify-center gap-5">
-          <PhotoProfile name={author.name} />
           <h1 className="mx-auto font-extrabold tracking-wide text-center before:-z-10 text-9xl max-w-max font-titan">
             @{author.username}
           </h1>

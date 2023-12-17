@@ -1,5 +1,4 @@
 import GeneralLayout from '@/components/layouts/GeneralLayout';
-import PhotoProfile from '@/components/partials/PhotoProfile';
 import Button from '@/components/ui/Button';
 import Input from '@/components/ui/form/Input';
 import { useForm } from '@inertiajs/react';
@@ -76,7 +75,6 @@ export default function Profile({ user }) {
     <GeneralLayout className="pt-36">
       <section>
         <div className="flex flex-col items-center justify-center w-full gap-10 px-10 py-20 bg-white shadow rounded-xl">
-          <PhotoProfile name={user.name} />
           <div className="space-y-2 text-center">
             <h1 className="text-3xl font-bold">{user.name}</h1>
             <p className="font-semibold">
