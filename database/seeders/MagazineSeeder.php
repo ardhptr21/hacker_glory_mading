@@ -24,6 +24,7 @@ class MagazineSeeder extends Seeder
       'approved' => true,
       'article' => '<p>Ini adalah contoh dalam membuat artikel dalam mading, semua hal disini bersifat rich text, jadi mulai dari embed gambar link list dan format format lainnya juga didukung</p><p><br></p><p>Akses smk koding website <a href="https://smkcoding.id/" rel="noopener noreferrer" target="_blank">disini</a></p><p><br></p><p>todo ku hari ini</p><ol><li>Makan</li><li>Minum</li><li>Mandi</li><li>Bermain Bersama</li></ol><p><br></p><blockquote>Aku pengen jadi juara di SMK CODING hehehehe</blockquote><p><br></p><p>Untuk fitur lainnya dapat dicoba pada bagian dashboard yang dapat diakses oleh admin dan juga penulis</p>',
       'published_at' => now(),
+      'important' => true,
     ]);
 
     Magazine::factory(15)->create([
