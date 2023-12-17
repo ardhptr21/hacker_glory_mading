@@ -1,8 +1,15 @@
 import DashboardLayout from '@/components/layouts/DashboardLayout';
+import Button from '@/components/ui/Button';
 import OverviewCard from '@/components/ui/card/OverviewCard';
 import Select from '@/components/ui/form/Select';
-import { router, usePage } from '@inertiajs/react';
-import { Article, Eye, Hourglass, Users } from '@phosphor-icons/react';
+import { Link, router, usePage } from '@inertiajs/react';
+import {
+  Article,
+  Eye,
+  Hourglass,
+  MicrosoftExcelLogo,
+  Users,
+} from '@phosphor-icons/react';
 import {
   CategoryScale,
   Chart,
@@ -121,6 +128,16 @@ export default function Dashboard({ user, analytics }) {
             icon={Eye}
             value={analytics.total_views}
           />
+          <Button
+            className="w-full"
+            as={'a'}
+            href={route('dashboard.exports', {
+              range: queryParams.get('range'),
+            })}
+          >
+            <MicrosoftExcelLogo size={24} />
+            Unduh Excel
+          </Button>
         </div>
       </section>
     </DashboardLayout>

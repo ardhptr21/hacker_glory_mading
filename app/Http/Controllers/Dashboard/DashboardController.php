@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Dashboard;
 
+use App\Exports\AnalyticsExport;
 use App\Http\Controllers\Controller;
 use App\Models\Analytic;
 use App\Models\Magazine;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class DashboardController extends Controller
 {
@@ -32,5 +34,12 @@ class DashboardController extends Controller
     }
 
     return inertia('dashboard/index', compact('analytics'));
+  }
+
+  public function exports(Request $request)
+  {
+    $range = $request->query('range', '7d');
+    $name = 'analytics-' . now()->format('Y-m-d-H-i-s') . '.xlsx';
+    return Excel::download(new AnalyticsExport($range), $name);
   }
 }

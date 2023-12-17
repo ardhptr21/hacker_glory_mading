@@ -63,6 +63,7 @@ Route::prefix('dashboard')->name('dashboard.')->middleware(['auth', 'role:admin,
   // === Main Dashboard Route ===
   Route::controller(DashboardController::class)->group(function () {
     Route::get('/', 'index')->name('index');
+    Route::get('/exports', 'exports')->name('exports');
   });
 
   // === User Routes ===
