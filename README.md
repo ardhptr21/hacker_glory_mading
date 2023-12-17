@@ -48,7 +48,13 @@ $ npm build
 $ php artisan migrate --seed
 ```
 
-6. Menjalankan
+6. Melakukan link
+
+```sh
+php artisan storage:link
+```
+
+7. Menjalankan
 
 ```sh
 $ php artisan serve
