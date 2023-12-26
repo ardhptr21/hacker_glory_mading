@@ -47,6 +47,7 @@ class MagazineRepository
     $important_magazines = Magazine::with(['category:id,name,slug', 'author:id,username'])
       ->important()
       ->published()
+      ->approved()
       ->orderBy('published_at', 'desc')
       ->orderBy('created_at', 'desc')
       ->get();
@@ -54,6 +55,7 @@ class MagazineRepository
     $latest_magazines = Magazine::with(['category:id,name,slug', 'author:id,username'])
       ->where('important', false)
       ->published()
+      ->approved()
       ->orderBy('published_at', 'desc')
       ->orderBy('created_at', 'desc')
       ->take(6)
