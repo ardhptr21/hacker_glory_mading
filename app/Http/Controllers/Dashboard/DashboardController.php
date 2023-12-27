@@ -19,9 +19,21 @@ class DashboardController extends Controller
     $total_magazines = Magazine::where('author_id', auth()->id())->count();
     $total_pending_magazines = Magazine::where('author_id', auth()->id())->where('approved', 0)->count();
 
-    $analytics_data = Analytic::whereIn('magazine_id', Magazine::where('author_id', auth()->id())->pluck('id'))
+    $data = Analytic::whereIn('magazine_id', Magazine::where('author_id', auth()->id())->pluck('id'))
       ->byRange($range)
-      ->get();
+      ->get()
+      ->groupBy(function ($item) {
+        return $item->created_at->format('Y-m-d');
+      });
+
+    $analytics_data = collect([]);
+    foreach ($data as $key => $value) {
+      $views = $value->sum('views');
+      $analytics_data->push([
+        'display_date' => $value->first()->created_at->format('d M Y'),
+        'views' => $views,
+      ]);
+    }
 
     $analytics = collect([
       'total_views' => $analytics_data->sum('views'),
