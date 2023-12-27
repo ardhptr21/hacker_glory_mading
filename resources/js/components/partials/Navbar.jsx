@@ -1,5 +1,6 @@
 import { Link, usePage } from '@inertiajs/react';
 import {
+  Article,
   BookmarkSimple,
   Gauge,
   House,
@@ -8,6 +9,7 @@ import {
   User,
   UserPlus,
 } from '@phosphor-icons/react';
+import clsx from 'clsx';
 
 export default function Navbar() {
   const { user } = usePage().props;
@@ -18,6 +20,13 @@ export default function Navbar() {
       icon: House,
       route: route('page.home'),
       active: route().current('page.home'),
+      show: true,
+    },
+    {
+      label: 'Mading',
+      icon: Article,
+      route: route('mading.index'),
+      active: route().current('mading.index'),
       show: true,
     },
     {
@@ -74,7 +83,13 @@ export default function Navbar() {
               <Link
                 key={r.label}
                 href={r.route}
-                className="inline-flex items-center gap-2 px-3 py-1 rounded-lg group hover:bg-gray-200"
+                className={clsx([
+                  'inline-flex items-center gap-2 px-3 py-1 rounded-lg group',
+                  {
+                    'text-white bg-black': r.active,
+                    'hover:bg-gray-200': !r.active,
+                  },
+                ])}
               >
                 <r.icon size={20} className="" />
                 {r.label}
